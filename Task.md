@@ -22,3 +22,12 @@
   - [X] Filtre par type des barèmes
 
 **4155**
+- [X] Conception base de données
+- [X] Espace client et authentification
+- [X] Première connexion et authentification par numéro de téléphone
+- [X] Modèle, Vues, Contrôleurs et Routes pour le login client
+- [X] Gestion du solde et des opérations du client
+- [X] Modèle du solde du compte et affichage dans le tableau de bord
+- [X] Gestion des opérations de dépôt (modèle, contrôleur, vue, routes)
+- [X] Gestion des opérations de retrait avec calcul automatique des frais via le barème et vérification du solde suffisant
+- [X] Gestion des transferts avec vérification de l'existence du destinataire, prévention des transferts vers soi-même, calcul des frais et validation du solde
