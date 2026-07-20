@@ -868,6 +868,7 @@ DEBUG - 2026-07-20 09:17:14 --> Session: Class initialized using 'CodeIgniter\Se
 DEBUG - 2026-07-20 09:17:16 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
 DEBUG - 2026-07-20 09:17:21 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
 DEBUG - 2026-07-20 09:17:22 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+<<<<<<< HEAD
 DEBUG - 2026-07-20 09:31:18 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
 DEBUG - 2026-07-20 09:31:18 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
 DEBUG - 2026-07-20 09:31:21 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
@@ -917,3 +918,47 @@ DEBUG - 2026-07-20 09:50:18 --> Session: Class initialized using 'CodeIgniter\Se
 DEBUG - 2026-07-20 09:50:22 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
 DEBUG - 2026-07-20 09:50:24 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
 DEBUG - 2026-07-20 09:51:00 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+=======
+DEBUG - 2026-07-20 06:42:31 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 06:42:38 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 06:42:39 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2026-07-20 06:42:40 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "client/depot.php"
+[Method: GET, Route: client/depot]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 39.
+ 1 SYSTEMPATH\View\View.php(228): CodeIgniter\Exceptions\FrameworkException::forInvalidFile()
+ 2 SYSTEMPATH\Common.php(1250): CodeIgniter\View\View->render()
+ 3 APPPATH\Controllers\OperationController.php(21): view()
+ 4 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\OperationController->vueDepot()
+ 5 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+ 6 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+ 7 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+ 9 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb()
+10 SYSTEMPATH\rewrite.php(44): require_once('C:\\Users\\rakot\\Documents\\ITU\\S4\\frontend-tech\\S4-projet-final\\Projet-Final-S4\\public\\index.php')
+CRITICAL - 2026-07-20 06:42:47 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "client/retrait.php"
+[Method: GET, Route: client/retrait]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 39.
+ 1 SYSTEMPATH\View\View.php(228): CodeIgniter\Exceptions\FrameworkException::forInvalidFile()
+ 2 SYSTEMPATH\Common.php(1250): CodeIgniter\View\View->render()
+ 3 APPPATH\Controllers\OperationController.php(50): view()
+ 4 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\OperationController->vueRetrait()
+ 5 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+ 6 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+ 7 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+ 9 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb()
+10 SYSTEMPATH\rewrite.php(44): require_once('C:\\Users\\rakot\\Documents\\ITU\\S4\\frontend-tech\\S4-projet-final\\Projet-Final-S4\\public\\index.php')
+CRITICAL - 2026-07-20 06:43:14 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "client/depot.php"
+[Method: GET, Route: client/depot]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 39.
+ 1 SYSTEMPATH\View\View.php(228): CodeIgniter\Exceptions\FrameworkException::forInvalidFile()
+ 2 SYSTEMPATH\Common.php(1250): CodeIgniter\View\View->render()
+ 3 APPPATH\Controllers\OperationController.php(21): view()
+ 4 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\OperationController->vueDepot()
+ 5 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+ 6 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+ 7 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+ 9 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb()
+10 SYSTEMPATH\rewrite.php(44): require_once('C:\\Users\\rakot\\Documents\\ITU\\S4\\frontend-tech\\S4-projet-final\\Projet-Final-S4\\public\\index.php')
+>>>>>>> f6fb291ac095c53f8b33b842f0ecc2fef84581af

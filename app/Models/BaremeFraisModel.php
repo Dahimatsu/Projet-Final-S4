@@ -26,4 +26,14 @@ class BaremeFraisModel extends Model
             ->where('bareme_frais.type_operation_id', $typeId)
             ->findAll();
     }
+
+    public function calculFrais(int $typeOperationId, float $montant)
+    {
+        $bareme = $this->where('type_operation_id', $typeOperationId)
+                       ->where('montant_min <=', $montant)
+                       ->where('montant_max >=', $montant)
+                       ->first();
+
+        return $bareme ? $bareme['frais'] : 0.00;
+    }
 }
