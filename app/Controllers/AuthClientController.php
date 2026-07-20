@@ -10,7 +10,7 @@ class AuthClientController extends BaseController
 {
     public function index()
     {
-        return view('client/login');
+        return view('front-office/login');
     }
 
     public function firstAutenticate() {
