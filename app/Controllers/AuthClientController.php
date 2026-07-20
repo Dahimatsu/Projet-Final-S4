@@ -50,7 +50,7 @@ class AuthClientController extends BaseController
 
         $prefixe = $this->request->getPost('prefixe');
         $suffixe = $this->request->getPost('suffixe');
-        $numeroTelephone = trim($prefixe . $suffixe);
+        $numeroTelephone = trim($prefixe + $suffixe);
 
         if ($model->clientExiste('numero_telephone', $numeroTelephone)) {
             $client = $model->where('numero_telephone', $numeroTelephone)->first();

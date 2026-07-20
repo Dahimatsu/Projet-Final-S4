@@ -1,44 +1,82 @@
-<?= $this->extend('layout-client') ?>
+<!DOCTYPE html>
+<html lang="fr">
 
-<?= $this->section('title') ?>Connexion client<?= $this->endSection() ?>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Connexion Client · Examen</title>
 
-<?= $this->section('content') ?>
+    <link rel="stylesheet" href="<?= base_url('assets/vendor/bootstrap/css/bootstrap.min.css') ?>">
+    <link rel="stylesheet" href="<?= base_url('assets/vendor/bootstrap/icons/bootstrap-icons.min.css') ?>">
 
-<div class="row justify-content-center">
-	<div class="col-lg-6 col-xl-5">
-		<div class="card shadow-sm border-0">
-			<div class="card-body p-4 p-md-5">
-				<h1 class="h3 mb-4">Connexion client</h1>
+    <link rel="stylesheet" href="<?= base_url('assets/css/style.css') ?>">
+</head>
 
-				<?php if (session()->getFlashdata('notExist')) : ?>
-					<div class="alert alert-warning">
-						<?= esc(session()->getFlashdata('notExist')) ?>
-					</div>
-				<?php endif; ?>
+<body class="d-flex align-items-center justify-content-center" style="min-height: 100vh;">
 
-				<form action="<?= base_url('client/login/authenticate') ?>" method="post" class="vstack gap-3">
-					<?= csrf_field() ?>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-4">
+                <div class="card shadow-sm border-0">
+                    <div class="card-body p-4">
+                        <h4 class="text-center mb-4">Se connecter</h4>
 
-					<div>
-						<label for="prefixe" class="form-label">Préfixe</label>
-						<select name="prefixe" id="prefixe" class="form-select" required>
-							<option value="" selected disabled>Choisir un préfixe</option>
-							<?php foreach ($data as $prefix) : ?>
-								<option value="<?= esc($prefix['code']) ?>"><?= esc($prefix['code']) ?></option>
-							<?php endforeach; ?>
-						</select>
-					</div>
+                        <?php if (session()->getFlashdata('notExist')){ ?>
+                            <div class="alert alert-primary mb-3">
+                                <?= session()->getFlashdata('notExist') ?>
+                            </div>
+                            <form action="<?= base_url('client/login/firstAuthenticate') ?>" method="post">
+                                <?= csrf_field() ?>
 
-					<div>
-						<label for="suffixe" class="form-label">Numéro</label>
-						<input type="text" name="suffixe" id="suffixe" class="form-control" placeholder="Ex: 123456789" required>
-					</div>
+                                <div class="mb-3">
+                                    <label class="form-label">Nom</label>
+                                    <input type="text" name="nom" class="form-control" placeholder="RAKOTO"
+                                        required>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Prénom</label>
+                                    <input type="text" name="prenom" class="form-control" placeholder="Jean Martin"
+                                        required>
+                                </div>
 
-					<button type="submit" class="btn btn-primary w-100">Se connecter</button>
-				</form>
-			</div>
-		</div>
-	</div>
-</div>
+                                <button type="submit" class="btn btn-primary w-100">
+                                    <i class="bi bi-box-arrow-in-right me-1"></i> Se connecter
+                                </button>
+                            </form>
+                        <?php } else { ?>
+                            <form action="<?= base_url('client/login/authenticate') ?>" method="post">
+                                <?= csrf_field() ?>
 
-<?= $this->endSection() ?>
+                                <div class="mb-3">
+                                    <label class="form-label d-block">Numéro de téléphone</label>
+                                    
+                                    <div class="row g-2">
+
+                                        <div class="col-4">
+                                            <select name="prefixe" class="form-select">
+                                                <?php for($i=0; $i<count($data); $i++) { ?>
+                                                    <option value="<?= $data[$i]['code'] ?>"><?= $data[$i]['code'] ?></option>
+                                                <?php } ?>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-8">
+                                            <input type="text" name="suffixe" class="form-control" placeholder="xx xxx xx" required>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <button type="submit" class="btn btn-primary w-100">
+                                    <i class="bi bi-box-arrow-in-right me-1"></i> Se connecter
+                                </button>
+                            </form>
+                        <?php } ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
