@@ -1,0 +1,55 @@
+.bg-primary { 
+    background-color: $theme-primary-surface-default !important; 
+}
+.bg-success { 
+    background-color: $success-surface-default !important; 
+}
+.bg-warning { 
+    background-color: $warning-surface-default !important; 
+}
+.bg-danger  { 
+    background-color: $error-surface-default !important; 
+} 
+
+.bg-primary-subtle { 
+    background-color: $theme-primary-surface-subtle !important; 
+    color: $theme-primary-text-label !important; 
+}
+.bg-success-subtle { 
+    background-color: $success-surface-subtle !important; 
+    color: $success-text-label !important; 
+}
+.bg-warning-subtle { 
+    background-color: $warning-surface-subtle !important; 
+    color: $warning-text-label !important; 
+}
+.bg-danger-subtle { 
+    background-color: $error-surface-subtle !important; 
+    color: $error-text-label !important; 
+}
+
+.border-primary { 
+    border-color: $theme-primary-border-default !important; 
+}
+.border-success { 
+    border-color: $success-border-default !important; 
+}
+.border-warning { 
+    border-color: $warning-border-default !important; 
+}
+.border-danger  { 
+    border-color: $error-border-default !important; 
+}
+
+.text-primary { 
+    color: $theme-primary-text-label !important; 
+}
+.text-success { 
+    color: $success-text-label !important; 
+}
+.text-warning { 
+    color: $warning-text-label !important; 
+}
+.text-danger  { 
+    color: $error-text-label !important; 
+}

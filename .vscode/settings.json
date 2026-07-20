@@ -1,0 +1,10 @@
+{
+    "php.version": "8.5",
+    "liveSassCompile.settings.formats": [
+        {
+            "format": "expanded",
+            "extensionName": ".css",
+            "savePath": "/public/assets/css"
+        }
+    ]
+}

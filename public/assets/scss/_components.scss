@@ -1,0 +1,88 @@
+// ----------------------------------------
+// ALERTES
+// ----------------------------------------
+.alert {
+    @extend .body-regular;
+    padding: 15px 20px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+
+    &-success { @extend .bg-success-subtle; border-color: $success-border-lighter; }
+    &-danger  { @extend .bg-danger-subtle;  border-color: $error-border-lighter; }
+    &-warning { @extend .bg-warning-subtle; border-color: $warning-border-lighter; }
+    &-primary { @extend .bg-primary-subtle; border-color: $theme-primary-border-lighter; }
+}
+
+// ----------------------------------------
+// BOUTONS
+// ----------------------------------------
+.btn {
+    @extend .subtitle-bold;
+    padding: 10px 20px;
+    border-radius: 8px;
+    border: 1px solid transparent;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    text-align: center;
+    cursor: pointer;
+    display: inline-block;
+
+    &-primary {
+        background-color: $theme-primary-surface-default;
+        color: $theme-primary-surface-subtle;
+        border-color: $theme-primary-border-default;
+        &:hover { background-color: $theme-primary-surface-darker; border-color: $theme-primary-border-darker; color: #ffffff; }
+    }
+
+    &-success {
+        background-color: $success-surface-default;
+        color: $success-surface-subtle;
+        border-color: $success-border-default;
+        &:hover { background-color: $success-surface-darker; border-color: $success-border-darker; color: #ffffff; }
+    }
+
+    &-danger {
+        background-color: $error-surface-default;
+        color: $error-surface-subtle;
+        border-color: $error-border-default;
+        &:hover { background-color: $error-surface-darker; border-color: $error-border-darker; color: #ffffff; }
+    }
+
+    &-warning {
+        background-color: $warning-surface-default;
+        color: $warning-surface-subtle;
+        border-color: $warning-border-default;
+        &:hover { background-color: $warning-surface-darker; border-color: $warning-border-darker; color: #ffffff; }
+    }
+}
+
+// ----------------------------------------
+// NAVIGATION
+// ----------------------------------------
+.nav-link {
+    @extend .subtitle-regular;
+    color: $theme-greyscale-text-body;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-bottom: 2px solid transparent; 
+    transition: all 0.3s ease;
+
+    &:hover {
+        color: $theme-primary-surface-default;
+        background-color: $theme-greyscale-surface-subtle;
+        text-shadow: 0 0 0.5px $theme-primary-surface-default;
+    }
+
+    &.active {
+        @extend .subtitle-bold;
+        border-radius: 0px;
+        border-bottom: 2px solid $theme-primary-surface-default; 
+    }
+}
+
+.nav-user {
+    @extend .subtitle-bold;
+    color: $theme-greyscale-text-title;
+    padding: 10px 20px;
+}

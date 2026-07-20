@@ -1,0 +1,27 @@
+@import 'fonts';
+@import 'color';
+@import 'typography';
+@import 'utilities';
+@import 'components';
+
+* { box-sizing: border-box; scroll-behavior: smooth; }
+
+body {
+    @extend .body-regular;
+    background-color: $theme-greyscale-surface-subtle;
+    color: $theme-greyscale-text-body;
+    margin: 0;
+}
+
+h1 { @extend .h1; color: $theme-greyscale-text-title; margin: 0; }
+h2 { @extend .h2; color: $theme-greyscale-text-title; margin: 0; }
+h3 { @extend .h3; color: $theme-greyscale-text-title; margin: 0; }
+h4 { @extend .h4; color: $theme-greyscale-text-title; margin: 0; }
+
+p      { @extend .body-regular; color: $theme-greyscale-text-body; }
+small  { @extend .caption-regular; color: $theme-greyscale-text-caption; }
+strong { font-weight: 700; }
+
+.subtitle { @extend .subtitle-regular; color: $theme-greyscale-text-subtitle; }
+.headline { @extend .headline-regular; color: $theme-greyscale-text-title; }
+.footnote { @extend .footnote-regular; color: $theme-greyscale-text-caption; }
