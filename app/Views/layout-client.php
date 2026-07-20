@@ -53,8 +53,8 @@ $navlinks = [
                 </nav>
     
                 <!-- Dans le header, remplace le div des boutons par ceci -->
-<div class="d-flex flex-column flex-lg-row gap-3 align-items-lg-center mt-auto mt-lg-0">
-    <?php if (session()->get('client_logged_in')): ?>
+                <div class="d-flex flex-column flex-lg-row gap-3 align-items-lg-center mt-auto mt-lg-0">
+                    <?php if (session()->get('client_logged_in')): ?>
                         <span class="navbar-text me-3">
                             <i class="bi bi-person-circle"></i>
                             <?= esc(session()->get('nom_client')) ?>

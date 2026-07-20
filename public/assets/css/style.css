@@ -394,7 +394,11 @@ strong {
 
 .admin-sidebar {
   width: 250px;
-  min-height: 100vh;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
   background: #F4FBFA;
   border-right: 1px solid #dee2e6;
   display: flex;
@@ -422,4 +426,9 @@ strong {
 }
 .admin-sidebar .bottom a:hover i {
   color: #C74736;
+}
+
+.flex-grow-1 {
+  margin-left: 250px;
+  min-height: 100vh;
 }/*# sourceMappingURL=style.css.map */

@@ -38,6 +38,7 @@ class AuthClientController extends BaseController
             'numero_telephone' => $client['numero_telephone'],
             'nom' => $client['nom'],
             'prenom' => $client['prenom'],
+            'client_logged_in' => true
         ]);
 
         return redirect()->to('/client/dashboard');
@@ -49,8 +50,13 @@ class AuthClientController extends BaseController
         $model = new ClientModel();
 
         $prefixe = $this->request->getPost('prefixe');
+<<<<<<< HEAD
         $suffixe = $this->request->getPost('suffixe');
         $numeroTelephone = trim($prefixe + $suffixe);
+=======
+        $suffixe = trim($this->request->getPost('suffixe'));
+        $numeroTelephone = $prefixe . $suffixe;
+>>>>>>> 6fd3ce19cb308bb3d79046813da985b9b2fc8ddf
 
         if ($model->clientExiste('numero_telephone', $numeroTelephone)) {
             $client = $model->where('numero_telephone', $numeroTelephone)->first();
@@ -58,6 +64,7 @@ class AuthClientController extends BaseController
                 'numero_telephone' => $client['numero_telephone'],
                 'nom' => $client['nom'],
                 'prenom' => $client['prenom'],
+                'client_logged_in' => true
             ]);
 
             return redirect()->to('/client/dashboard');
