@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="<?= base_url('assets/css/style.css') ?>">
 </head>
 
-<body class="bg-light d-flex align-items-center justify-content-center" style="min-height: 100vh;">
+<body class="d-flex align-items-center justify-content-center" style="min-height: 100vh;">
 
     <div class="container">
         <div class="row justify-content-center">

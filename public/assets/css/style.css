@@ -390,4 +390,11 @@ strong {
 
 .footnote {
   color: #A7C5C4;
+}
+
+.admin-sidebar {
+  width: 250px;
+  min-height: 100vh;
+  background: #5E7070;
+  border-right: 1px solid #dee2e6;
 }/*# sourceMappingURL=style.css.map */

@@ -25,3 +25,10 @@ strong { font-weight: 700; }
 .subtitle { @extend .subtitle-regular; color: $theme-greyscale-text-subtitle; }
 .headline { @extend .headline-regular; color: $theme-greyscale-text-title; }
 .footnote { @extend .footnote-regular; color: $theme-greyscale-text-caption; }
+
+.admin-sidebar {
+    width: 250px;
+    min-height: 100vh;
+    background: $theme-greyscale-border-darker;
+    border-right: 1px solid #dee2e6;
+}
