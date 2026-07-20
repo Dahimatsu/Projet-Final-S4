@@ -26,7 +26,7 @@ $navlinks = [
     
     <div class="logo">
         <a href="/" class="text-decoration-none text-reset">
-            <strong>Examen</strong>
+            <strong>Operateur</strong>
         </a>
     </div>
 
@@ -34,7 +34,6 @@ $navlinks = [
         <i class="bi bi-list fs-3"></i>
     </button>
 
-    <!-- Offcanvas -->
     <div class="offcanvas-lg offcanvas-end flex-grow-1" tabindex="-1" id="menuOffcanvas">
         
         <div class="offcanvas-header d-lg-none p-4">
@@ -53,9 +52,22 @@ $navlinks = [
                     <?php } ?>
                 </nav>
     
-                <div class="d-flex flex-column flex-lg-row gap-3 align-items-lg-center mt-auto mt-lg-0">
+                <!-- Dans le header, remplace le div des boutons par ceci -->
+<div class="d-flex flex-column flex-lg-row gap-3 align-items-lg-center mt-auto mt-lg-0">
+    <?php if (session()->get('client_logged_in')): ?>
+                        <span class="navbar-text me-3">
+                            <i class="bi bi-person-circle"></i>
+                            <?= esc(session()->get('nom_client')) ?>
+                        </span>
+                        <a href="/client/logout" class="btn btn-outline-danger">Déconnexion</a>
+                    <?php else: ?>
+                        <a href="/client/login" class="btn btn-outline-primary">
+                            <i class="bi bi-box-arrow-in-right me-1"></i>Connexion Client
+                        </a>
+                    <?php endif; ?>
+                
                     <a href="/admin/login" class="btn btn-primary">
-                        <i class="bi bi-box-arrow-in-right me-1"></i>Backoffice
+                        <i class="bi bi-gear me-1"></i>Backoffice
                     </a>
                 </div>
     
