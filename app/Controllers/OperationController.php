@@ -18,7 +18,7 @@ class OperationController extends BaseController
     }
 
     public function vueDepot() {
-        return view('client/depot');
+        return view('front-office/depot');
     }
     public function depot() {
         $session = session();
@@ -47,7 +47,7 @@ class OperationController extends BaseController
 
 
     public function vueRetrait() {
-        return view('client/retrait');
+        return view('front-office/retrait');
     }
     public function retrait() {
         $session = session();
@@ -88,7 +88,7 @@ class OperationController extends BaseController
     }
 
     public function vueTransfert() {
-        return view('client/transfert');
+        return view('front-office/transfert');
     }
     public function transfert() {
         $session = session();
