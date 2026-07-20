@@ -25,7 +25,9 @@ $routes->group('admin', function ($routes) {
         $routes->get('/', 'BaremeController::index');
         $routes->post('store', 'BaremeController::store');
         $routes->post('delete/(:num)', 'BaremeController::delete/$1');
-    });
+        });
+
+    $routes->get('clients', 'ClientController::index');
 });
 
 $routes->group('client', function ($routes) {
