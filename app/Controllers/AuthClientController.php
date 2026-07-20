@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\ClientModel;
+use App\Models\PrefixeModel;
 use App\Controllers\BaseController;
 use CodeIgniter\HTTP\ResponseInterface;
 
@@ -10,7 +11,9 @@ class AuthClientController extends BaseController
 {
     public function index()
     {
-        return view('front-office/login');
+        $prefixModel = new PrefixeModel();
+        $data = $prefixModel->findAll();
+        return view('front-office/login', ['data' => $data]);
     }
 
     public function firstAutenticate() {
@@ -40,7 +43,9 @@ class AuthClientController extends BaseController
     public function authenticate() {
         $session = session();
         $model = new ClientModel();
-        $numeroTelephone = $this->request->getPost('numero_telephone');
+        $prefixe = $this->request->getPost('prefixe');
+        $suffixe = $this->request->getPost('suffixe');
+        $numeroTelephone = trim($prefixe + $suffixe);
         
         if($model->clientExiste('numero_telephone', $numeroTelephone)) {
             $client = $model->where('numero_telephone', $numeroTelephone)->first();

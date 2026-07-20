@@ -48,9 +48,22 @@
                                 <?= csrf_field() ?>
 
                                 <div class="mb-3">
-                                    <label class="form-label">Numéro de téléphone</label>
-                                    <input type="text" name="numero_telephone" class="form-control" placeholder="xxx xx xxx xx"
-                                        required>
+                                    <label class="form-label d-block">Numéro de téléphone</label>
+                                    
+                                    <div class="row g-2">
+
+                                        <div class="col-4">
+                                            <select name="prefixe" class="form-select">
+                                                <?php for($i=0; $i<count($data); $i++) { ?>
+                                                    <option value="<?= $data[$i]['code'] ?>"><?= $data[$i]['code'] ?></option>
+                                                <?php } ?>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-8">
+                                            <input type="text" name="suffixe" class="form-control" placeholder="xx xxx xx" required>
+                                        </div>
+                                    </div>
                                 </div>
 
                                 <button type="submit" class="btn btn-primary w-100">
