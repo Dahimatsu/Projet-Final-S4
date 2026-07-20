@@ -261,6 +261,7 @@ DEBUG - 2026-07-20 07:33:14 --> Session: Class initialized using 'CodeIgniter\Se
 DEBUG - 2026-07-20 07:33:53 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
 DEBUG - 2026-07-20 07:34:34 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
 <<<<<<< HEAD
+<<<<<<< HEAD
 DEBUG - 2026-07-20 07:40:26 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
 DEBUG - 2026-07-20 07:41:29 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
 DEBUG - 2026-07-20 07:44:14 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
@@ -552,6 +553,8 @@ in SYSTEMPATH\Exceptions\FrameworkException.php on line 39.
 10 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
 11 SYSTEMPATH\rewrite.php(44): require_once('D:\\ITU\\Web\\S4\\4054-4155\\public\\index.php')
 =======
+=======
+>>>>>>> f5b9bc32f762f9cb1569a376fcc23b2f8105261e
 DEBUG - 2026-07-20 04:47:32 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
 DEBUG - 2026-07-20 04:47:39 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
 CRITICAL - 2026-07-20 04:47:42 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "client/login.php"
@@ -748,4 +751,7 @@ DEBUG - 2026-07-20 05:21:10 --> Session: Class initialized using 'CodeIgniter\Se
 DEBUG - 2026-07-20 05:21:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
 DEBUG - 2026-07-20 05:21:16 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
 DEBUG - 2026-07-20 05:21:16 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+<<<<<<< HEAD
+>>>>>>> f5b9bc32f762f9cb1569a376fcc23b2f8105261e
+=======
 >>>>>>> f5b9bc32f762f9cb1569a376fcc23b2f8105261e
