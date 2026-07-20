@@ -21,3 +21,5 @@ $routes->group('client', function ($routes) {
     $routes->get('login/authenticate', 'AuthClientController::authenticate');
     $routes->get('dashboard', 'AdminDashboard::index');
 });
+
+$routes->get('logout', 'LogoutController::logout');

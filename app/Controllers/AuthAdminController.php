@@ -25,17 +25,12 @@ class AuthAdminController extends BaseController
             $session->set([
                 'id_admin' => $admin['id_admin'],
                 'nom' => $admin['nom'],
-                'logged_in' => true
+                'prenom' => $admin['prenom'],
+                'admin_logged_in' => true
             ]);
             return redirect()->to('/admin/dashboard');
         }
 
         return redirect()->back()->with('error', 'Email ou mot de passe invalide.');
-    }
-
-    public function logout()
-    {
-        session()->destroy();
-        return redirect()->to('/');
     }
 }

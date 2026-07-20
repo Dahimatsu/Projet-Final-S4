@@ -7,7 +7,6 @@ use App\Models\BaremeFraisModel;
 
 class OperateurController extends BaseController
 {
-    // Affiche la liste des préfixes et les barèmes
     public function index()
     {
         $prefixeModel = new PrefixeModel();
