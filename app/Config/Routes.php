@@ -15,3 +15,9 @@ $routes->group('admin', function ($routes) {
     $routes->post('login/authenticate', 'AuthAdminController::authenticate');
     $routes->get('dashboard', 'AdminDashboard::index');
 });
+
+$routes->group('client', function ($routes) {
+    $routes->get('login', 'AuthClientController::index');
+    $routes->get('login/authenticate', 'AuthClientController::authenticate');
+    $routes->get('dashboard', 'AdminDashboard::index');
+});
