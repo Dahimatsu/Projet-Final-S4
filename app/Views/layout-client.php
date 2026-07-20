@@ -54,18 +54,9 @@ $navlinks = [
                 </nav>
     
                 <div class="d-flex flex-column flex-lg-row gap-3 align-items-lg-center mt-auto mt-lg-0">
-                    <?php if (session()->get('logged_in')) { ?>
-                        <span class="nav-user">
-                            <i class="bi bi-person-circle me-1"></i><?= esc(session()->get('nom')) ?>
-                        </span>
-                        <a href="/logout" class="btn btn-danger">
-                            <i class="bi bi-box-arrow-right me-1"></i>Déconnexion
-                        </a>
-                    <?php } else { ?>
-                        <a href="/login" class="btn btn-primary">
-                            <i class="bi bi-box-arrow-in-right me-1"></i>Connexion
-                        </a>
-                    <?php } ?>
+                    <a href="/admin/login" class="btn btn-primary">
+                        <i class="bi bi-box-arrow-in-right me-1"></i>Backoffice
+                    </a>
                 </div>
     
             </div>
