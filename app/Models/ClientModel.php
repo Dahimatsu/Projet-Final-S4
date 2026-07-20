@@ -7,7 +7,7 @@ use CodeIgniter\Model;
 class ClientModel extends Model
 {
     protected $table            = 'compte_client';
-    protected $primaryKey       = 'id';
+    protected $primaryKey       = 'id_client';
     protected $allowedFields    = ['numero_telephone', 'nom', 'prenom'];
 
     public function clientExiste(string $champ, $valeur): bool

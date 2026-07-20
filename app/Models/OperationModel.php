@@ -25,8 +25,8 @@ class OperationModel extends Model
                               c1.nom as source_nom, 
                               c2.nom as destinataire_nom')
             ->join('type_operation', 'type_operation.id = operation.type_operation_id')
-            ->join('client as c1', 'c1.id = operation.id_client', 'left')
-            ->join('client as c2', 'c2.id = operation.numero_destinataire', 'left')
+            ->join('compte_client as c1', 'c1.id_client = operation.id_client', 'left')
+            ->join('compte_client as c2', 'c2.numero_telephone = operation.numero_destinataire', 'left')
             ->orderBy('operation.date_operation', 'DESC')
             ->findAll();
     }
