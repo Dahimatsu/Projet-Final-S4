@@ -22,7 +22,6 @@
   - [X] Filtre par type des barèmes
 
 **4155**
-- [X] Conception base de données
 - [X] Espace client et authentification
 - [X] Première connexion et authentification par numéro de téléphone
 - [X] Modèle, Vues, Contrôleurs et Routes pour le login client
