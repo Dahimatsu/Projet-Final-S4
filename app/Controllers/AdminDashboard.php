@@ -26,6 +26,6 @@ class AdminDashboard extends BaseController
             'operationsJour' => $operationsJour ?? 0
         ];
 
-        return view('admin/dashboard', $data);
+        return view('back-office/dashboard', $data);
     }
 }

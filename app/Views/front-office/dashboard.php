@@ -8,17 +8,13 @@
     <span class="text-muted">Bienvenue, <strong><?= session()->get('prenom') ?? 'Client' ?></strong></span>
 </div>
 
-<!-- Ligne du Solde -->
 <div class="row mb-4">
     <div class="col-md-12">
         <div class="card bg-primary text-white shadow-sm">
             <div class="card-body d-flex justify-content-between align-items-center">
                 <div>
                     <h5 class="card-title mb-0">Solde actuel</h5>
-                    <p class="card-text fs-2 fw-bold mb-0">
-                        <!-- Remplacez par votre variable de solde ex: <?= $solde ?? '0.00' ?> Ar -->
-                        150 000 Ar
-                    </p>
+                    <p class="card-text fs-2 fw-bold mb-0">150 000 Ar</p>
                 </div>
                 <div>
                     <a href="<?= base_url('client/solde') ?>" class="btn btn-light btn-sm">
@@ -30,9 +26,7 @@
     </div>
 </div>
 
-<!-- Grille des actions rapides -->
 <div class="row g-3">
-    <!-- Dépôt -->
     <div class="col-md-3">
         <div class="card shadow-sm h-100 text-center border-0">
             <div class="card-body d-flex flex-column justify-content-between">
@@ -46,7 +40,6 @@
         </div>
     </div>
 
-    <!-- Retrait -->
     <div class="col-md-3">
         <div class="card shadow-sm h-100 text-center border-0">
             <div class="card-body d-flex flex-column justify-content-between">
@@ -60,7 +53,6 @@
         </div>
     </div>
 
-    <!-- Transfert -->
     <div class="col-md-3">
         <div class="card shadow-sm h-100 text-center border-0">
             <div class="card-body d-flex flex-column justify-content-between">
@@ -74,7 +66,6 @@
         </div>
     </div>
 
-    <!-- Historiques -->
     <div class="col-md-3">
         <div class="card shadow-sm h-100 text-center border-0">
             <div class="card-body d-flex flex-column justify-content-between">

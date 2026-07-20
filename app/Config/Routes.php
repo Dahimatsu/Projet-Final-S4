@@ -18,8 +18,9 @@ $routes->group('admin', function ($routes) {
 
 $routes->group('client', function ($routes) {
     $routes->get('login', 'AuthClientController::index');
-    $routes->get('login/authenticate', 'AuthClientController::authenticate');
-    $routes->get('dashboard', 'AdminDashboard::index');
+    $routes->post('login/authenticate', 'AuthClientController::authenticate');
+    $routes->post('login/firstAuthenticate', 'AuthClientController::firstAuthenticate');
+    $routes->get('dashboard', 'ClientDashboard::index');
 });
 
 $routes->get('logout', 'LogoutController::logout');
