@@ -16,7 +16,7 @@ class AuthClientController extends BaseController
         return view('front-office/login', ['data' => $data]);
     }
 
-    public function firstAutenticate() {
+    public function firstAuthenticate() {
         $session = session();
         $model = new ClientModel();
 

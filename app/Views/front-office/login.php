@@ -25,7 +25,7 @@
                             <div class="alert alert-primary mb-3">
                                 <?= session()->getFlashdata('notExist') ?>
                             </div>
-                            <form action="<?= base_url('client/login/authenticate') ?>" method="post">
+                            <form action="<?= base_url('client/login/firstAuthenticate') ?>" method="post">
                                 <?= csrf_field() ?>
 
                                 <div class="mb-3">
