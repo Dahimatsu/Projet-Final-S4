@@ -8,7 +8,7 @@ class AuthAdminController extends BaseController
 {
     public function index()
     {
-        return view('admin/login');
+        return view('back-office/login');
     }
 
     public function authenticate()
@@ -21,7 +21,7 @@ class AuthAdminController extends BaseController
 
         $admin = $model->where('email', $email)->first();
 
-        if ($admin && password_verify($password, $admin['mot_de_passe'])) {
+        if ($admin && $password === $admin['mot_de_passe']) {
             $session->set([
                 'id_admin' => $admin['id_admin'],
                 'nom' => $admin['nom'],
