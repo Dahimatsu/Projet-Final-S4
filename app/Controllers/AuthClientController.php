@@ -38,6 +38,7 @@ class AuthClientController extends BaseController
             'numero_telephone' => $client['numero_telephone'],
             'nom' => $client['nom'],
             'prenom' => $client['prenom'],
+            'client_logged_in' => true
         ]);
 
         return redirect()->to('/client/dashboard');
@@ -58,6 +59,7 @@ class AuthClientController extends BaseController
                 'numero_telephone' => $client['numero_telephone'],
                 'nom' => $client['nom'],
                 'prenom' => $client['prenom'],
+                'client_logged_in' => true
             ]);
 
             return redirect()->to('/client/dashboard');
