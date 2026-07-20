@@ -1,11 +1,10 @@
 <?php
 $navlinks = [
-    ['url' => '/client/dashboard', 'label' => 'Dashboard', 'icon' => 'bi-speedometer2'],
-    ['url' => '/client/solde', 'label' => 'Solde', 'icon' => 'bi-wallet2'],
-    ['url' => '/client/depot', 'label' => 'Dépôt', 'icon' => 'bi-arrow-down-circle'],
-    ['url' => '/client/retrait', 'label' => 'Retrait', 'icon' => 'bi-arrow-up-circle'],
-    ['url' => '/client/transfert', 'label' => 'Transfert', 'icon' => 'bi-arrow-left-right'],
-    ['url' => '/client/historiques', 'label' => 'Historiques', 'icon' => 'bi-clock-history'],
+    ['url' => 'client/dashboard', 'label' => 'Dashboard', 'icon' => 'bi-speedometer2'],
+    ['url' => 'client/depot', 'label' => 'Dépôt', 'icon' => 'bi-arrow-down-circle'],
+    ['url' => 'client/retrait', 'label' => 'Retrait', 'icon' => 'bi-arrow-up-circle'],
+    ['url' => 'client/transfert', 'label' => 'Transfert', 'icon' => 'bi-arrow-left-right'],
+    ['url' => 'client/historique', 'label' => 'Historique', 'icon' => 'bi-clock-history'],
 ];
 ?>
 
@@ -35,7 +34,7 @@ $navlinks = [
 
         <ul class="nav flex-column mt-3">
             <?php foreach ($navlinks as $link): ?>
-                <?php $active = url_is(trim($link['url'], '/')) ? 'active' : ''; ?>
+                <?php $active = url_is($link['url']) ? 'active' : ''; ?>
 
                 <li>
                     <a href="<?= base_url($link['url']) ?>" class="nav-link <?= $active ?>">
@@ -53,7 +52,7 @@ $navlinks = [
                 <i class="bi bi-person-circle fs-4 me-2 text-secondary"></i>
 
                 <div>
-                    <div class="fw-bold">
+                    <div class="fw-bold text-truncate" title="<?= esc(session()->get('prenom')) ?>">
                         <?= esc(session()->get('prenom')) ?>
                     </div>
 
@@ -63,8 +62,7 @@ $navlinks = [
                 </div>
             </div>
 
-            <a href="<?= base_url('client/logout') ?>"
-                class="nav-link text-danger p-0 d-flex align-items-center">
+            <a href="/logout" class="nav-link text-danger p-0 d-flex align-items-center">
 
                 <i class="bi bi-box-arrow-right me-2"></i>
                 Déconnexion
@@ -76,9 +74,10 @@ $navlinks = [
     </nav>
 
     <!-- Contenu -->
-    <div class="flex-grow-1 d-flex flex-column bg-light">
+    <div class="flex-grow-1 d-flex flex-column bg-light" style="margin-left: 250px;">
+        <!-- Assure-toi d'avoir le margin-left si ta sidebar est fixed -->
 
-        <header class="px-4 py-3 border-bottom d-flex align-items-center">
+        <header class="px-4 py-3 border-bottom d-flex align-items-center bg-white">
 
             <h5 class="mb-0">
                 Espace Client
@@ -88,29 +87,28 @@ $navlinks = [
 
         <main class="container-fluid p-4">
 
+            <!-- Alertes d'erreur -->
             <?php if (session()->getFlashdata('error')): ?>
-
                 <div class="alert alert-danger">
                     <i class="bi bi-exclamation-triangle-fill me-2"></i>
                     <?= esc(session()->getFlashdata('error')) ?>
                 </div>
-
             <?php endif; ?>
 
-            <?php if (session()->getFlashdata('message')): ?>
-
+            <!-- Alertes de succès -->
+            <?php if (session()->getFlashdata('success')): ?>
                 <div class="alert alert-success">
                     <i class="bi bi-check-circle-fill me-2"></i>
-                    <?= esc(session()->getFlashdata('message')) ?>
+                    <?= esc(session()->getFlashdata('success')) ?>
                 </div>
-
             <?php endif; ?>
 
+            <!-- Section dynamique -->
             <?= $this->renderSection('content') ?>
 
         </main>
 
-        <footer class="py-3 text-center border-top mt-auto">
+        <footer class="py-3 text-center border-top mt-auto bg-white">
             <small>
                 Examen S4 Design
                 <i class="bi bi-c-circle mx-1"></i>

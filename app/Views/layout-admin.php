@@ -5,6 +5,8 @@ $navlinks = [
     ['url' => '/admin/baremes', 'label' => 'Barèmes'],
     ['url' => '/admin/clients', 'label' => 'Clients'],
     ['url' => '/admin/gains', 'label' => 'Gains'],
+    ['url' => '/admin/autres-operateurs', 'label' => 'Autres Opérateurs'],
+    ['url' => '/admin/commissions', 'label' => 'Commissions'],
 ];
 ?>
 

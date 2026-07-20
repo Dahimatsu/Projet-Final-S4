@@ -1,42 +1,44 @@
 <?php
 
-namespace App\Controllers;
+namespace App\Controllers; // Ou App\Controllers\Admin si tu l'as mis dans un sous-dossier
 
 use App\Controllers\BaseController;
-use App\Models\PrefixeModel;
+use App\Models\PrefixeYasModel;
 
 class PrefixeController extends BaseController
 {
-    protected $prefixeModel;
-
-    public function __construct()
-    {
-        $this->prefixeModel = new PrefixeModel();
-    }
-
     public function index()
     {
-        $data['prefixes'] = $this->prefixeModel->findAll();
+        $model = new PrefixeYasModel();
+
+        $data['prefixes'] = $model->findAll();
+
         return view('back-office/prefixe', $data);
     }
 
     public function store()
     {
-        $rules = ['code' => 'required|min_length[3]|max_length[3]'];
+        $rules = [
+            'code' => 'required|min_length[3]|max_length[3]|is_unique[prefixe_yas.code]'
+        ];
 
         if (!$this->validate($rules)) {
-            return redirect()->back()->with('error', 'Le code doit avoir 3 caractères.');
+            return redirect()->back()->with('error', 'Erreur : Code invalide ou déjà existant (3 chiffres requis).');
         }
 
-        $this->prefixeModel->save(['code' => $this->request->getPost('code')]);
-        return redirect()->to('/admin/prefixe')->with('message', 'Préfixe ajouté avec succès.');
+        $model = new PrefixeYasModel();
+        $model->insert([
+            'code' => $this->request->getPost('code')
+        ]);
+
+        return redirect()->to('/admin/prefixes')->with('success', 'Préfixe YAS ajouté avec succès.');
     }
 
     public function delete($id)
     {
-        $model = new PrefixeModel();
+        $model = new PrefixeYasModel();
         $model->delete($id);
 
-        return redirect()->to('/admin/prefixes')->with('message', 'Préfixe supprimé.');
+        return redirect()->to('/admin/prefixes')->with('success', 'Préfixe supprimé.');
     }
 }

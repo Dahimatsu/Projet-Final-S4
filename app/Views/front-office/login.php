@@ -54,9 +54,11 @@
 
                                         <div class="col-4">
                                             <select name="prefixe" class="form-select">
-                                                <?php for($i=0; $i<count($data); $i++) { ?>
-                                                    <option value="<?= $data[$i]['code'] ?>"><?= $data[$i]['code'] ?></option>
-                                                <?php } ?>
+                                                <?php foreach ($prefixes as $prefixe): ?>
+                                                    <option value="<?= esc($prefixe['code']) ?>">
+                                                        <?= esc($prefixe['code']) ?>
+                                                    </option>
+                                                <?php endforeach; ?>
                                             </select>
                                         </div>
 

@@ -1,32 +1,19 @@
 <?php
-
 namespace App\Models;
-
 use CodeIgniter\Model;
 
 class OperationModel extends Model
 {
     protected $table = 'operation';
     protected $primaryKey = 'id_operation';
+    protected $allowedFields = ['id_client', 'type_operation_id', 'montant', 'numero_destinataire', 'date_operation', 'frais'];
 
-    protected $allowedFields = [
-        'type_operation_id',
-        'id_client',
-        'numero_destinataire',
-        'montant',
-        'frais',
-        'date_operation'
-    ];
-
-    public function getOperationsDetails()
+    // Fonction pour récupérer l'historique avec le nom du type d'opération
+    public function getHistoriqueClient($id_client)
     {
-        return $this->select('operation.*, 
-                              type_operation.nom as type_nom, 
-                              c1.nom as source_nom, 
-                              c2.nom as destinataire_nom')
+        return $this->select('operation.*, type_operation.nom as type_nom')
             ->join('type_operation', 'type_operation.id = operation.type_operation_id')
-            ->join('compte_client as c1', 'c1.id_client = operation.id_client', 'left')
-            ->join('compte_client as c2', 'c2.numero_telephone = operation.numero_destinataire', 'left')
+            ->where('operation.id_client', $id_client)
             ->orderBy('operation.date_operation', 'DESC')
             ->findAll();
     }

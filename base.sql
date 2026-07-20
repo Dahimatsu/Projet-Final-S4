@@ -1,9 +1,9 @@
-CREATE TABLE prefixe (
+CREATE TABLE prefixe_yas (
     id   INTEGER PRIMARY KEY AUTOINCREMENT,
     code TEXT NOT NULL UNIQUE
 );
 
-INSERT INTO prefixe (code) VALUES ('033'), ('037'), ('034'), ('038'), ('032');
+INSERT INTO prefixe_yas (code) VALUES ('034'), ('038');
 
 CREATE TABLE type_operation (
     id  INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -49,20 +49,15 @@ CREATE TABLE compte_client (
     id_client        INTEGER PRIMARY KEY AUTOINCREMENT,
     numero_telephone TEXT NOT NULL UNIQUE,
     nom              TEXT NOT NULL,
-    prenom           TEXT NOT NULL
-);
-
-CREATE TABLE solde_compte (
-    id_client INTEGER PRIMARY KEY,
-    solde     REAL NOT NULL,
-    FOREIGN KEY(id_client) REFERENCES compte_client(id_client)
+    prenom           TEXT NOT NULL,
+    solde            REAL NOT NULL DEFAULT 0
 );
 
 CREATE TABLE operation (
     id_operation        INTEGER PRIMARY KEY AUTOINCREMENT,
     id_client           INTEGER,
     type_operation_id   INTEGER,
-    montant             REAL NOT NULL,
+    montant             REAL NOT NULL DEFAULT 0,
     numero_destinataire TEXT DEFAULT NULL,
     date_operation      TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
     frais               REAL NOT NULL,
@@ -70,20 +65,28 @@ CREATE TABLE operation (
     FOREIGN KEY(type_operation_id) REFERENCES type_operation(id)
 );
 
-CREATE TABLE configuration_gain (
-    id           INTEGER PRIMARY KEY AUTOINCREMENT,
-    id_operation TEXT NOT NULL,
-    pourcentage  REAL NOT NULL
+CREATE TABLE autre_operateur (
+    id_autre_operateur INTEGER PRIMARY KEY AUTOINCREMENT,
+    prefixe            TEXT NOT NULL UNIQUE,
+    nom_operateur      TEXT NOT NULL
 );
 
-INSERT INTO configuration_gain (id_operation, pourcentage) VALUES (2, 0.10), (3, 0.10);
+INSERT INTO autre_operateur (prefixe, nom_operateur) 
+VALUES ('032', 'Orange'), ('037', 'Orange'),('033', 'Airtel');
 
-CREATE TABLE gain (
-    id_gain      INTEGER PRIMARY KEY AUTOINCREMENT,
-    id_operation INTEGER,
-    montant_gain REAL NOT NULL,
-    FOREIGN KEY(id_operation) REFERENCES operation(id_operation)
+
+CREATE TABLE historique_gain(
+    id_historique_gain INTEGER PRIMARY KEY AUTOINCREMENT,
+    montant_gain       REAL NOT NULL,
+    date_gain          TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
+
+CREATE TABLE pourcentage_commission (
+    id_pourcentage_commission INTEGER PRIMARY KEY AUTOINCREMENT,
+    pourcentage               REAL NOT NULL
+);
+
+INSERT INTO pourcentage_commission (pourcentage) VALUES (0.10);
 
 CREATE TABLE compte_admin (
     id_admin     INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -94,3 +97,5 @@ CREATE TABLE compte_admin (
 );
 
 INSERT INTO compte_admin (nom, prenom, email, mot_de_passe) VALUES ('RAVELOMANANTSOA', 'Tony Mahefa', 'admin@example.com', 'admin123');
+
+

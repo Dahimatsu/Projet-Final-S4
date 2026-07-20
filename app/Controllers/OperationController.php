@@ -1,157 +1,198 @@
 <?php
-
 namespace App\Controllers;
-
-use App\Controllers\BaseController;
 use App\Models\ClientModel;
-use App\Controllers\SoldeCompteController;
-use App\Models\SoldeCompteModel;
 use App\Models\BaremeFraisModel;
-use CodeIgniter\HTTP\ResponseInterface;
-
+use App\Models\HistoriqueGainModel;
+use App\Models\OperationModel;
+use App\Models\PourcentageCommissionModel;
 
 class OperationController extends BaseController
 {
-    public function index()
+    public function vueDepot()
     {
-        //
-    }
-
-    public function vueDepot() {
         return view('front-office/depot');
     }
-    public function depot() {
-        $session = session();
-        $montant = $this->request->getPost('montant');
-        
+
+    public function depot()
+    {
+        $montant = (float) $this->request->getPost('montant');
         $clientModel = new ClientModel();
-        $client = $clientModel->where('numero_telephone', $session->get('numero_telephone'))->first();
-        if (!$client) {
+
+        $client = $clientModel->where('numero_telephone', session()->get('numero_telephone'))->first();
+        if (!$client)
             return redirect()->to('/client/login');
-        }
-        $id_client = $client['id_client'];
-        
-        $data = [
-            'id_client'           => $id_client,
-            'type_operation_id'   => 1,
-            'montant'             => $montant,
-            'numero_destinataire' => null,
-            'frais'               => 0.00
-        ];
 
-        $operationModel = new \App\Models\OperationModel();
-        $operationModel->insert($data);
+        $clientModel->set('solde', 'solde + ' . $montant, false)
+            ->where('id_client', $client['id_client'])
+            ->update();
 
-        return redirect()->to('/client/dashboard')->with('success', 'Dépôt effectué avec succès !');
+        $operationModel = new OperationModel();
+        $operationModel->insert([
+            'id_client' => $client['id_client'],
+            'type_operation_id' => 1,
+            'montant' => $montant,
+            'frais' => 0
+        ]);
+
+        return redirect()->to('/client/dashboard')->with('success', 'Dépôt de ' . $montant . ' Ar effectué.');
     }
 
-
-    public function vueRetrait() {
+    public function vueRetrait()
+    {
         return view('front-office/retrait');
     }
-    public function retrait() {
-        $session = session();
+
+    public function retrait()
+    {
         $montant = (float) $this->request->getPost('montant');
-        
         $clientModel = new ClientModel();
-        $client = $clientModel->where('numero_telephone', $session->get('numero_telephone'))->first();
-        if (!$client) {
+
+        $client = $clientModel->where('numero_telephone', session()->get('numero_telephone'))->first();
+        if (!$client)
             return redirect()->to('/client/login');
-        }
-        $id_client = $client['id_client'];
-        
-        $soldeModel = new SoldeCompteModel();
-        $soldeRecord = $soldeModel->where('id_client', $id_client)->first();
-        $solde = $soldeRecord ? (float) $soldeRecord['solde'] : 0.00;
 
         $baremeModel = new BaremeFraisModel();
         $frais = (float) $baremeModel->calculFrais(2, $montant);
-
         $totalAPayer = $montant + $frais;
 
-        if ($solde < $totalAPayer) {
-            return redirect()->back()->with('error', 'Solde insuffisant ! (Montant: ' . $montant . ' + Frais: ' . $frais . ')');
+        if ($client['solde'] < $totalAPayer) {
+            return redirect()->back()->with('error', 'Solde insuffisant.');
         }
 
-        $data = [
-            'id_client'           => $id_client,
-            'type_operation_id'   => 2,
-            'montant'             => $montant,
-            'numero_destinataire' => null,
-            'frais'               => $frais
-        ];
+        $db = \Config\Database::connect();
+        $db->transStart();
 
-        $operationModel = new \App\Models\OperationModel();
-        $operationModel->insert($data);
+        $clientModel->set('solde', 'solde - ' . $totalAPayer, false)
+            ->where('id_client', $client['id_client'])
+            ->update();
 
-        return redirect()->to('/client/dashboard')->with('success', 'Retrait effectué avec succès !');
+        $operationModel = new OperationModel();
+        $operationModel->insert([
+            'id_client' => $client['id_client'],
+            'type_operation_id' => 2,
+            'montant' => $montant,
+            'frais' => $frais
+        ]);
+
+        $gainModel = new HistoriqueGainModel();
+        $gainModel->insert(['montant_gain' => $frais]);
+
+        $db->transComplete();
+
+        return redirect()->to('/client/dashboard')->with('success', 'Retrait effectué.');
     }
 
-    public function vueTransfert() {
+    public function vueTransfert()
+    {
         return view('front-office/transfert');
     }
-    public function transfert() {
-        $session = session();
-        $montant = (float) $this->request->getPost('montant');
+
+    public function transfert()
+    {
+        $commissionModel = new PourcentageCommissionModel();
+        $commissionConfig = $commissionModel->first();
+        $tauxCommission = $commissionConfig ? (float) $commissionConfig['pourcentage'] : 0.10;
+
+        $montantTotal = (float) $this->request->getPost('montant');
+        $prefixes = $this->request->getPost('prefixe');
+        $suffixes = $this->request->getPost('suffixe');
+        $inclureFraisRetrait = $this->request->getPost('inclure_frais_retrait') ? true : false;
 
         $clientModel = new ClientModel();
-
-        // 1. Récupérer et reconstituer le numéro du destinataire
-        $prefixe = $this->request->getPost('prefixe');
-        $suffixe = $this->request->getPost('suffixe');
-        $numeroDestinataire = trim($prefixe . $suffixe);
-
-        // 2. Vérifier si le client destinataire existe
-        $destinataire = $clientModel->where('numero_telephone', $numeroDestinataire)->first();
-        if (!$destinataire) {
-            return redirect()->back()->with('error', 'Le numéro du destinataire n\'existe pas.');
-        }
-
-        // 3. Récupérer l'expéditeur connecté
-        $client = $clientModel->where('numero_telephone', $session->get('numero_telephone'))->first();
-        if (!$client) {
+        $clientExpediteur = $clientModel->where('numero_telephone', session()->get('numero_telephone'))->first();
+        if (!$clientExpediteur)
             return redirect()->to('/client/login');
-        }
-        $id_client = $client['id_client'];
 
-        // Empêcher de s'envoyer de l'argent à soi-même (optionnel mais recommandé)
-        if ($client['numero_telephone'] === $numeroDestinataire) {
-            return redirect()->back()->with('error', 'Vous ne pouvez pas effectuer un transfert vers votre propre compte.');
-        }
+        $nbDestinataires = count($prefixes);
+        $montantDivise = $montantTotal / $nbDestinataires;
+        $isMultiple = $nbDestinataires > 1;
 
-        // 4. Vérifier le solde de l'expéditeur
-        $soldeModel = new SoldeCompteModel();
-        $soldeRecord = $soldeModel->where('id_client', $id_client)->first();
-        $solde = $soldeRecord ? (float) $soldeRecord['solde'] : 0.00;
-
-        // 5. Calculer les frais pour le transfert (type_operation_id = 3)
+        $destinatairesData = [];
+        $totalAPrelever = 0;
         $baremeModel = new BaremeFraisModel();
-        $frais = (float) $baremeModel->calculFrais(3, $montant);
 
-        $totalAPayer = $montant + $frais;
+        for ($i = 0; $i < $nbDestinataires; $i++) {
+            $numero = $prefixes[$i] . trim($suffixes[$i]);
+            $isYas = in_array($prefixes[$i], ['034', '038']);
 
-        if ($solde < $totalAPayer) {
-            return redirect()->back()->with('error', 'Solde insuffisant ! (Montant: ' . $montant . ' + Frais: ' . $frais . ')');
+            if ($isMultiple && !$isYas) {
+                return redirect()->back()->with('error', 'Envoi multiple autorisé uniquement vers YAS.');
+            }
+            if ($numero === $clientExpediteur['numero_telephone']) {
+                return redirect()->back()->with('error', 'Impossible d\'envoyer à vous-même.');
+            }
+
+            $fraisTransfert = (float) $baremeModel->calculFrais(3, $montantDivise);
+            if (!$isYas) {
+                $fraisTransfert += ($fraisTransfert * $tauxCommission);
+            }
+
+            $fraisRetrait = 0;
+            if ($inclureFraisRetrait && $isYas) {
+                $fraisRetrait = (float) $baremeModel->calculFrais(2, $montantDivise);
+            }
+
+            $montantFinalRecu = $montantDivise + $fraisRetrait;
+            $coutTotalPourExpediteur = $montantFinalRecu + $fraisTransfert;
+
+            $totalAPrelever += $coutTotalPourExpediteur;
+
+            $destinatairesData[] = [
+                'numero' => $numero,
+                'isYas' => $isYas,
+                'montantRecu' => $montantFinalRecu,
+                'fraisTransfert' => $fraisTransfert
+            ];
         }
 
-        // 6. Enregistrer l'opération de transfert
-        $data = [
-            'id_client'           => $id_client,
-            'type_operation_id'   => 3,
-            'montant'             => $montant,
-            'numero_destinataire' => $numeroDestinataire,
-            'frais'               => $frais
-        ];
+        if ($clientExpediteur['solde'] < $totalAPrelever) {
+            return redirect()->back()->with('error', 'Solde insuffisant.');
+        }
 
-        $operationModel = new \App\Models\OperationModel();
-        $operationModel->insert($data);
+        $db = \Config\Database::connect();
+        $db->transStart();
 
-        return redirect()->to('/client/dashboard')->with('success', 'Transfert de ' . $montant . ' Ar vers ' . $numeroDestinataire . ' effectué avec succès !');
+        $clientModel->set('solde', 'solde - ' . $totalAPrelever, false)->where('id_client', $clientExpediteur['id_client'])->update();
+
+        $operationModel = new OperationModel();
+        $gainModel = new HistoriqueGainModel();
+
+        foreach ($destinatairesData as $dest) {
+            if ($dest['isYas']) {
+                $destClient = $clientModel->where('numero_telephone', $dest['numero'])->first();
+                if (!$destClient) {
+                    $db->transRollback();
+                    return redirect()->back()->with('error', 'Le numéro ' . $dest['numero'] . ' est introuvable.');
+                }
+                $clientModel->set('solde', 'solde + ' . $dest['montantRecu'], false)->where('id_client', $destClient['id_client'])->update();
+            }
+
+            $operationModel->insert([
+                'id_client' => $clientExpediteur['id_client'],
+                'type_operation_id' => 3,
+                'montant' => $montantDivise,
+                'numero_destinataire' => $dest['numero'],
+                'frais' => $dest['fraisTransfert']
+            ]);
+
+            $gainModel->insert(['montant_gain' => $dest['fraisTransfert']]);
+        }
+
+        $db->transComplete();
+
+        return redirect()->to('/client/dashboard')->with('success', 'Transfert effectué.');
     }
 
+    public function historique()
+    {
+        $clientModel = new ClientModel();
+        $client = $clientModel->where('numero_telephone', session()->get('numero_telephone'))->first();
+        if (!$client)
+            return redirect()->to('/client/login');
 
+        $operationModel = new OperationModel();
+        $data['operations'] = $operationModel->getHistoriqueClient($client['id_client']);
 
-    public function historique() {
-
+        return view('front-office/historique', $data);
     }
 }

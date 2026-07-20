@@ -8,5 +8,5 @@ class PrefixeModel extends Model
 {
     protected $table = 'prefixe';
     protected $primaryKey = 'id';
-    protected $allowedFields = ['code'];
+    protected $allowedFields = ['code', 'est_externe', 'nom_operateur'];
 }

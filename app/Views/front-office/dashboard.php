@@ -3,89 +3,91 @@
 <?= $this->section('title') ?>Tableau de bord<?= $this->endSection() ?>
 
 <?= $this->section('content') ?>
-<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-    <h1 class="h2">Tableau de bord</h1>
-    <span class="text-muted">Bienvenue, <strong><?= session()->get('prenom') ?? 'Client' ?></strong></span>
-</div>
 
-<!-- Ligne du Solde -->
-<div class="row mb-4">
+<!-- Section Solde Total -->
+<div class="row mt-2 mb-4">
     <div class="col-md-12">
-        <div class="card bg-primary text-white shadow-sm">
-            <div class="card-body d-flex justify-content-between align-items-center">
-                <div>
-                    <h5 class="card-title mb-0">Solde actuel</h5>
-                    <p class="card-text fs-2 fw-bold mb-0">
-                        <!-- Remplacez par votre variable de solde ex: <?= $solde ?? '0.00' ?> Ar -->
-                        150 000 Ar
-                    </p>
-                </div>
-                <div>
-                    <a href="<?= base_url('client/solde') ?>" class="btn btn-light btn-sm">
-                        <i class="bi bi-eye"></i> Voir les détails
-                    </a>
-                </div>
+        <div class="card shadow-sm border-0 bg-primary text-white text-center py-4">
+            <div class="card-body">
+                <h5 class="text-white-50 mb-2">Mon Solde Actuel</h5>
+                <h1 class="display-4 fw-bold mb-0">
+                    <?= number_format($client['solde'], 2, ',', ' ') ?> Ar
+                </h1>
             </div>
         </div>
     </div>
 </div>
 
-<!-- Grille des actions rapides -->
-<div class="row g-3">
-    <!-- Dépôt -->
-    <div class="col-md-3">
-        <div class="card shadow-sm h-100 text-center border-0">
-            <div class="card-body d-flex flex-column justify-content-between">
-                <div>
-                    <div class="text-success mb-2 fs-1"><i class="bi bi-arrow-down-circle"></i></div>
-                    <h5 class="card-title">Faire un dépôt</h5>
-                    <p class="card-text text-muted small">Alimentez votre compte instantanément.</p>
-                </div>
-                <a href="<?= base_url('client/depot') ?>" class="btn btn-outline-success w-100 mt-3">Déposer</a>
-            </div>
-        </div>
+<!-- Section Actions Rapides -->
+<div class="row text-center mb-5">
+    <div class="col-md-4 mb-3">
+        <a href="<?= base_url('client/depot') ?>" class="btn btn-success btn-lg w-100 py-3 shadow-sm">
+            <i class="bi bi-arrow-down-circle d-block fs-2 mb-1"></i> Dépôt
+        </a>
     </div>
-
-    <!-- Retrait -->
-    <div class="col-md-3">
-        <div class="card shadow-sm h-100 text-center border-0">
-            <div class="card-body d-flex flex-column justify-content-between">
-                <div>
-                    <div class="text-warning mb-2 fs-1"><i class="bi bi-arrow-up-circle"></i></div>
-                    <h5 class="card-title">Faire un retrait</h5>
-                    <p class="card-text text-muted small">Retirez de l'argent automatiquement.</p>
-                </div>
-                <a href="<?= base_url('client/retrait') ?>" class="btn btn-outline-warning w-100 mt-3">Retirer</a>
-            </div>
-        </div>
+    <div class="col-md-4 mb-3">
+        <a href="<?= base_url('client/retrait') ?>" class="btn btn-warning btn-lg w-100 py-3 text-white shadow-sm">
+            <i class="bi bi-arrow-up-circle d-block fs-2 mb-1"></i> Retrait
+        </a>
     </div>
-
-    <!-- Transfert -->
-    <div class="col-md-3">
-        <div class="card shadow-sm h-100 text-center border-0">
-            <div class="card-body d-flex flex-column justify-content-between">
-                <div>
-                    <div class="text-primary mb-2 fs-1"><i class="bi bi-arrow-left-right"></i></div>
-                    <h5 class="card-title">Faire un transfert</h5>
-                    <p class="card-text text-muted small">Envoyez des fonds vers un autre compte.</p>
-                </div>
-                <a href="<?= base_url('client/transfert') ?>" class="btn btn-outline-primary w-100 mt-3">Transférer</a>
-            </div>
-        </div>
-    </div>
-
-    <!-- Historiques -->
-    <div class="col-md-3">
-        <div class="card shadow-sm h-100 text-center border-0">
-            <div class="card-body d-flex flex-column justify-content-between">
-                <div>
-                    <div class="text-secondary mb-2 fs-1"><i class="bi bi-clock-history"></i></div>
-                    <h5 class="card-title">Historiques</h5>
-                    <p class="card-text text-muted small">Consultez toutes vos opérations passées.</p>
-                </div>
-                <a href="<?= base_url('client/historiques') ?>" class="btn btn-outline-secondary w-100 mt-3">Voir l'historique</a>
-            </div>
-        </div>
+    <div class="col-md-4 mb-3">
+        <a href="<?= base_url('client/transfert') ?>" class="btn btn-dark btn-lg w-100 py-3 shadow-sm">
+            <i class="bi bi-arrow-left-right d-block fs-2 mb-1"></i> Transfert
+        </a>
     </div>
 </div>
+
+<div class="card shadow-sm border-0">
+    <div class="card-header bg-white d-flex justify-content-between align-items-center pt-3 pb-2 border-bottom">
+        <h5 class="mb-0 fw-bold">Opérations récentes</h5>
+        <a href="<?= base_url('client/historique') ?>" class="btn btn-sm btn-outline-primary">Voir tout</a>
+    </div>
+    <div class="list-group list-group-flush">
+        <?php if (empty($dernieres_operations)): ?>
+            <div class="text-center text-muted py-5">
+                <i class="bi bi-inbox fs-1 d-block mb-2"></i>
+                Aucune opération récente.
+            </div>
+        <?php else: ?>
+            <?php foreach ($dernieres_operations as $op): ?>
+                <div class="list-group-item d-flex justify-content-between align-items-center py-3">
+                    <div class="d-flex align-items-center">
+                        <!-- Icône selon le type d'opération -->
+                        <div class="me-3 fs-3">
+                            <?php if ($op['type_operation_id'] == 1): ?>
+                                <i class="bi bi-arrow-down-circle-fill text-success"></i>
+                            <?php elseif ($op['type_operation_id'] == 2): ?>
+                                <i class="bi bi-arrow-up-circle-fill text-warning"></i>
+                            <?php else: ?>
+                                <i class="bi bi-arrow-left-right text-dark"></i>
+                            <?php endif; ?>
+                        </div>
+                        <div>
+                            <h6 class="mb-0 fw-bold">
+                                <?= esc($op['type_nom']) ?>
+                                <?php if ($op['numero_destinataire']): ?>
+                                    <span class="text-muted fw-normal ms-1">vers <?= esc($op['numero_destinataire']) ?></span>
+                                <?php endif; ?>
+                            </h6>
+                            <small class="text-muted">
+                                <?= date('d/m/Y à H:i', strtotime($op['date_operation'])) ?>
+                            </small>
+                        </div>
+                    </div>
+                    <div class="text-end">
+                        <span class="fw-bold fs-5 <?= $op['type_operation_id'] == 1 ? 'text-success' : 'text-danger' ?>">
+                            <?= $op['type_operation_id'] == 1 ? '+' : '-' ?>         <?= number_format($op['montant'], 2, ',', ' ') ?>
+                            Ar
+                        </span>
+                        <?php if ($op['frais'] > 0): ?>
+                            <div class="small text-muted" style="font-size: 0.75rem;">Frais:
+                                <?= number_format($op['frais'], 0, ',', ' ') ?> Ar</div>
+                        <?php endif; ?>
+                    </div>
+                </div>
+            <?php endforeach; ?>
+        <?php endif; ?>
+    </div>
+</div>
+
 <?= $this->endSection() ?>
