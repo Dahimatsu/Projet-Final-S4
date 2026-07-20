@@ -1,4 +1,4 @@
-<?= $this->extend('layouts/admin') ?>
+<?= $this->extend('layout-admin') ?>
 
 <?= $this->section('title') ?>Tableau de bord<?= $this->endSection() ?>
 

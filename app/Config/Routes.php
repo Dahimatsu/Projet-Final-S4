@@ -14,6 +14,18 @@ $routes->group('admin', function ($routes) {
     $routes->get('login', 'AuthAdminController::index');
     $routes->post('login/authenticate', 'AuthAdminController::authenticate');
     $routes->get('dashboard', 'AdminDashboard::index');
+
+    $routes->group('prefixes', function ($routes) {
+        $routes->get('/', 'PrefixeController::index');
+        $routes->post('store', 'PrefixeController::store');
+        $routes->post('delete/(:num)', 'PrefixeController::delete/$1');
+    });
+
+    $routes->group('baremes', function ($routes) {
+        $routes->get('/', 'BaremeController::index');
+        $routes->post('store', 'BaremeController::store');
+        $routes->post('delete/(:num)', 'BaremeController::delete/$1');
+    });
 });
 
 $routes->group('client', function ($routes) {
