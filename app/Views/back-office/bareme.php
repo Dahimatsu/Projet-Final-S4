@@ -35,7 +35,6 @@
     </div>
 </form>
 
-<!-- Formulaire de filtrage -->
 <form method="get" class="row g-3 mb-4 bg-light p-3 border rounded align-items-end">
     <div class="col-md-4">
         <label>Filtrer par type :</label>
