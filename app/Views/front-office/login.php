@@ -22,7 +22,7 @@
                         <h4 class="text-center mb-4">Se connecter</h4>
 
                         <?php if (session()->getFlashdata('notExist')){ ?>
-                            <div class="alert alert-primary mb-3">
+                            <div class="alert alert-success mb-3">
                                 <?= session()->getFlashdata('notExist') ?>
                             </div>
                             <form action="<?= base_url('client/login/firstAuthenticate') ?>" method="post">

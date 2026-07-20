@@ -29,7 +29,7 @@ class OperationController extends BaseController
         if (!$client) {
             return redirect()->to('/client/login');
         }
-        $id_client = $client['id'];
+        $id_client = $client['id_client'];
         
         $data = [
             'id_client'           => $id_client,
@@ -58,7 +58,7 @@ class OperationController extends BaseController
         if (!$client) {
             return redirect()->to('/client/login');
         }
-        $id_client = $client['id'];
+        $id_client = $client['id_client'];
         
         $soldeModel = new SoldeCompteModel();
         $soldeRecord = $soldeModel->where('id_client', $id_client)->first();
@@ -112,7 +112,7 @@ class OperationController extends BaseController
         if (!$client) {
             return redirect()->to('/client/login');
         }
-        $id_client = $client['id'];
+        $id_client = $client['id_client'];
 
         // Empêcher de s'envoyer de l'argent à soi-même (optionnel mais recommandé)
         if ($client['numero_telephone'] === $numeroDestinataire) {

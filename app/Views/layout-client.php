@@ -1,6 +1,11 @@
 <?php
 $navlinks = [
-    ['url' => '/', 'label' => 'Accueil'],
+    ['url' => '/client/dashboard', 'label' => 'Dashboard', 'icon' => 'bi-speedometer2'],
+    ['url' => '/client/solde', 'label' => 'Solde', 'icon' => 'bi-wallet2'],
+    ['url' => '/client/depot', 'label' => 'Dépôt', 'icon' => 'bi-arrow-down-circle'],
+    ['url' => '/client/retrait', 'label' => 'Retrait', 'icon' => 'bi-arrow-up-circle'],
+    ['url' => '/client/transfert', 'label' => 'Transfert', 'icon' => 'bi-arrow-left-right'],
+    ['url' => '/client/historiques', 'label' => 'Historiques', 'icon' => 'bi-clock-history'],
 ];
 ?>
 
@@ -10,92 +15,112 @@ $navlinks = [
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title><?= $this->renderSection('title') ?> · Examen</title>
+    <title><?= $this->renderSection('title') ?> · Client</title>
 
     <link rel="stylesheet" href="<?= base_url('assets/vendor/bootstrap/css/bootstrap.min.css') ?>">
     <link rel="stylesheet" href="<?= base_url('assets/vendor/bootstrap/icons/bootstrap-icons.min.css') ?>">
-
     <link rel="stylesheet" href="<?= base_url('assets/css/style.css') ?>">
 
     <script src="<?= base_url('assets/vendor/bootstrap/js/bootstrap.bundle.min.js') ?>" defer></script>
 </head>
 
-<body class="d-flex flex-column">
+<body class="d-flex">
 
-<header class="fixed-top w-100 px-4 py-3 d-flex align-items-center">
-    
-    <div class="logo">
-        <a href="/" class="text-decoration-none text-reset">
-            <strong>Operateur</strong>
-        </a>
+    <!-- Sidebar -->
+    <nav class="admin-sidebar d-none d-lg-flex flex-column">
+
+        <div class="p-3 text-center border-bottom">
+            <strong>Espace Client</strong>
+        </div>
+
+        <ul class="nav flex-column mt-3">
+            <?php foreach ($navlinks as $link): ?>
+                <?php $active = url_is(trim($link['url'], '/')) ? 'active' : ''; ?>
+
+                <li>
+                    <a href="<?= base_url($link['url']) ?>" class="nav-link <?= $active ?>">
+                        <i class="bi <?= $link['icon'] ?> me-2"></i>
+                        <?= esc($link['label']) ?>
+                    </a>
+                </li>
+
+            <?php endforeach; ?>
+        </ul>
+
+        <div class="mt-auto border-top bg-light p-3">
+
+            <div class="d-flex align-items-center mb-3">
+                <i class="bi bi-person-circle fs-4 me-2 text-secondary"></i>
+
+                <div>
+                    <div class="fw-bold">
+                        <?= esc(session()->get('prenom')) ?>
+                    </div>
+
+                    <small class="text-muted">
+                        <?= esc(session()->get('numero_telephone')) ?>
+                    </small>
+                </div>
+            </div>
+
+            <a href="<?= base_url('client/logout') ?>"
+                class="nav-link text-danger p-0 d-flex align-items-center">
+
+                <i class="bi bi-box-arrow-right me-2"></i>
+                Déconnexion
+
+            </a>
+
+        </div>
+
+    </nav>
+
+    <!-- Contenu -->
+    <div class="flex-grow-1 d-flex flex-column bg-light">
+
+        <header class="px-4 py-3 border-bottom d-flex align-items-center">
+
+            <h5 class="mb-0">
+                Espace Client
+            </h5>
+
+        </header>
+
+        <main class="container-fluid p-4">
+
+            <?php if (session()->getFlashdata('error')): ?>
+
+                <div class="alert alert-danger">
+                    <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                    <?= esc(session()->getFlashdata('error')) ?>
+                </div>
+
+            <?php endif; ?>
+
+            <?php if (session()->getFlashdata('message')): ?>
+
+                <div class="alert alert-success">
+                    <i class="bi bi-check-circle-fill me-2"></i>
+                    <?= esc(session()->getFlashdata('message')) ?>
+                </div>
+
+            <?php endif; ?>
+
+            <?= $this->renderSection('content') ?>
+
+        </main>
+
+        <footer class="py-3 text-center border-top mt-auto">
+            <small>
+                Examen S4 Design
+                <i class="bi bi-c-circle mx-1"></i>
+                IT University 2026 |
+                ETU004054 - ETU004155
+            </small>
+        </footer>
+
     </div>
 
-    <button class="btn d-lg-none ms-auto" type="button" data-bs-toggle="offcanvas" data-bs-target="#menuOffcanvas">
-        <i class="bi bi-list fs-3"></i>
-    </button>
-
-    <div class="offcanvas-lg offcanvas-end flex-grow-1" tabindex="-1" id="menuOffcanvas">
-        
-        <div class="offcanvas-header d-lg-none p-4">
-            <h5 class="offcanvas-title">Menu</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#menuOffcanvas" aria-label="Close"></button>
-        </div>
-
-        <div class="offcanvas-body d-flex flex-column flex-lg-row align-items-lg-center">
-            
-            <nav class="d-flex flex-column flex-lg-row gap-4 mx-lg-auto">
-                <?php foreach ($navlinks as $link) { ?>
-                        <?php $activeClass = url_is($link['url']) ? 'active' : ''; ?>
-                        <a href="<?= base_url($link['url']) ?>" class="nav-link <?= $activeClass ?>">
-                            <?= esc($link['label']) ?>
-                        </a>
-                    <?php } ?>
-                </nav>
-    
-                <!-- Dans le header, remplace le div des boutons par ceci -->
-                <div class="d-flex flex-column flex-lg-row gap-3 align-items-lg-center mt-auto mt-lg-0">
-                    <?php if (session()->get('client_logged_in')): ?>
-                        <span class="navbar-text me-3">
-                            <i class="bi bi-person-circle"></i>
-                            <?= esc(session()->get('nom_client')) ?>
-                        </span>
-                        <a href="/client/logout" class="btn btn-outline-danger">Déconnexion</a>
-                    <?php else: ?>
-                        <a href="/client/login" class="btn btn-outline-primary">
-                            <i class="bi bi-box-arrow-in-right me-1"></i>Connexion Client
-                        </a>
-                    <?php endif; ?>
-                
-                    <a href="/admin/login" class="btn btn-primary">
-                        <i class="bi bi-gear me-1"></i>Backoffice
-                    </a>
-                </div>
-    
-            </div>
-        </div>
-    </header>
-
-    <main class="container flex-grow-1 py-5" style="min-height: 100dvh; margin-top: 40px;">
-
-        <?php if (session()->getFlashdata('error')) { ?>
-            <div class="alert alert-danger mt-4">
-                <i class="bi bi-exclamation-triangle-fill me-2"></i><?= esc(session()->getFlashdata('error')) ?>
-            </div>
-        <?php } ?>
-
-        <?php if (session()->getFlashdata('message')) { ?>
-            <div class="alert alert-success mt-4">
-                <i class="bi bi-check-circle-fill me-2"></i><?= esc(session()->getFlashdata('message')) ?>
-            </div>
-        <?php } ?>
-
-        <?= $this->renderSection('content') ?>
-
-    </main>
-
-    <footer class="py-3 mt-4 text-center">
-    <small>Examen S4 Design <i class="bi bi-c-circle me-1 ms-1"></i>IT University 2026 | ETU00<strong>4054</strong> - ETU00<strong>4155</strong></small>
-    </footer>
 </body>
 
 </html>
