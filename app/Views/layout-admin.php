@@ -1,98 +1,64 @@
-<?php
-$navlinks = [
-    ['url' => '/', 'label' => 'Accueil'],
-];
-?>
-
 <!DOCTYPE html>
 <html lang="fr">
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title><?= $this->renderSection('title') ?> · Examen</title>
-
+    <title><?= $this->renderSection('title') ?> · Admin</title>
     <link rel="stylesheet" href="<?= base_url('assets/vendor/bootstrap/css/bootstrap.min.css') ?>">
     <link rel="stylesheet" href="<?= base_url('assets/vendor/bootstrap/icons/bootstrap-icons.min.css') ?>">
+    <style>
+        .sidebar {
+            min-height: 100vh;
+            width: 250px;
+            background: #343a40;
+            color: #fff;
+        }
 
-    <link rel="stylesheet" href="<?= base_url('assets/css/style.css') ?>">
+        .sidebar a {
+            color: #ccc;
+            text-decoration: none;
+            display: block;
+            padding: 10px 20px;
+        }
 
-    <script src="<?= base_url('assets/vendor/bootstrap/js/bootstrap.bundle.min.js') ?>" defer></script>
+        .sidebar a:hover,
+        .sidebar a.active {
+            background: #495057;
+            color: #fff;
+        }
+    </style>
 </head>
 
-<body class="d-flex flex-column">
+<body>
 
-<header class="fixed-top w-100 px-4 py-3 d-flex align-items-center">
-    
-    <div class="logo">
-        <a href="/" class="text-decoration-none text-reset">
-            <strong>Examen</strong>
-        </a>
+    <div class="d-flex">
+        <!-- Sidebar -->
+        <nav class="sidebar d-flex flex-column flex-shrink-0">
+            <a href="/" class="p-3 text-white text-decoration-none"><strong>Admin Mobile Money</strong></a>
+            <hr>
+            <ul class="nav nav-pills flex-column mb-auto">
+                <li><a href="/admin/dashboard" class="nav-link <?= url_is('admin/dashboard') ? 'active' : '' ?>"><i
+                            class="bi bi-speedometer2 me-2"></i>Tableau de bord</a></li>
+                <li><a href="/admin/prefixe" class="nav-link <?= url_is('admin/prefixe*') ? 'active' : '' ?>"><i
+                            class="bi bi-phone me-2"></i>Préfixes</a></li>
+                <li><a href="/admin/bareme" class="nav-link <?= url_is('admin/bareme*') ? 'active' : '' ?>"><i
+                            class="bi bi-percent me-2"></i>Barèmes frais</a></li>
+            </ul>
+            <hr>
+            <a href="/logout" class="p-3 text-danger"><i class="bi bi-box-arrow-right me-2"></i>Déconnexion</a>
+        </nav>
+
+        <!-- Contenu -->
+        <main class="flex-grow-1 p-4">
+            <?php if (session()->getFlashdata('message')): ?>
+                <div class="alert alert-success"><?= session()->getFlashdata('message') ?></div>
+            <?php endif; ?>
+
+            <?= $this->renderSection('content') ?>
+        </main>
     </div>
 
-    <button class="btn d-lg-none ms-auto" type="button" data-bs-toggle="offcanvas" data-bs-target="#menuOffcanvas">
-        <i class="bi bi-list fs-3"></i>
-    </button>
-
-    <!-- Offcanvas -->
-    <div class="offcanvas-lg offcanvas-end flex-grow-1" tabindex="-1" id="menuOffcanvas">
-        
-        <div class="offcanvas-header d-lg-none p-4">
-            <h5 class="offcanvas-title">Menu</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#menuOffcanvas" aria-label="Close"></button>
-        </div>
-
-        <div class="offcanvas-body d-flex flex-column flex-lg-row align-items-lg-center">
-            
-            <nav class="d-flex flex-column flex-lg-row gap-4 mx-lg-auto">
-                <?php foreach ($navlinks as $link) { ?>
-                        <?php $activeClass = url_is($link['url']) ? 'active' : ''; ?>
-                        <a href="<?= base_url($link['url']) ?>" class="nav-link <?= $activeClass ?>">
-                            <?= esc($link['label']) ?>
-                        </a>
-                    <?php } ?>
-                </nav>
-    
-                <div class="d-flex flex-column flex-lg-row gap-3 align-items-lg-center mt-auto mt-lg-0">
-                    <?php if (session()->get('logged_in')) { ?>
-                        <span class="nav-user">
-                            <i class="bi bi-person-circle me-1"></i><?= esc(session()->get('nom')) ?>
-                        </span>
-                        <a href="/logout" class="btn btn-danger">
-                            <i class="bi bi-box-arrow-right me-1"></i>Déconnexion
-                        </a>
-                    <?php } else { ?>
-                        <a href="/login" class="btn btn-primary">
-                            <i class="bi bi-box-arrow-in-right me-1"></i>Connexion
-                        </a>
-                    <?php } ?>
-                </div>
-    
-            </div>
-        </div>
-    </header>
-
-    <main class="container flex-grow-1 py-5" style="min-height: 100dvh; margin-top: 40px;">
-
-        <?php if (session()->getFlashdata('error')) { ?>
-            <div class="alert alert-danger mt-4">
-                <i class="bi bi-exclamation-triangle-fill me-2"></i><?= esc(session()->getFlashdata('error')) ?>
-            </div>
-        <?php } ?>
-
-        <?php if (session()->getFlashdata('message')) { ?>
-            <div class="alert alert-success mt-4">
-                <i class="bi bi-check-circle-fill me-2"></i><?= esc(session()->getFlashdata('message')) ?>
-            </div>
-        <?php } ?>
-
-        <?= $this->renderSection('content') ?>
-
-    </main>
-
-    <footer class="py-3 mt-4 text-center">
-    <small>Examen S4 Design <i class="bi bi-c-circle me-1 ms-1"></i>IT University 2026 | ETU00<strong>4054</strong> - ETU00<strong>4155</strong></small>
-    </footer>
+    <script src="<?= base_url('assets/vendor/bootstrap/js/bootstrap.bundle.min.js') ?>"></script>
 </body>
 
 </html>

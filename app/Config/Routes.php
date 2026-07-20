@@ -9,3 +9,9 @@ use App\Controllers\AccueilController;
  */
 
 $routes->get('/', [AccueilController::class, 'index']);
+
+$routes->group('admin', function ($routes) {
+    $routes->get('login', 'AuthAdminController::index');
+    $routes->post('login/authenticate', 'AuthAdminController::authenticate');
+    $routes->get('dashboard', 'AdminDashboard::index');
+});

@@ -1,4 +1,4 @@
-<?= $this->extend('layout') ?>
+<?= $this->extend('layout-client') ?>
 <?= $this->section('title') ?> Accueil <?= $this->endSection() ?>
 
 <?= $this->section('content') ?>
