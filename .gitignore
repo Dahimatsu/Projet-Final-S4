@@ -1,0 +1,4 @@
+writable/session/*
+!writable/session/.gitkeep
+writable/logs/*.log
+writable/debugbar/*.json
