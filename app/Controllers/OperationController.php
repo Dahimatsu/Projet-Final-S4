@@ -5,6 +5,7 @@ use App\Models\BaremeFraisModel;
 use App\Models\HistoriqueGainModel;
 use App\Models\OperationModel;
 use App\Models\PourcentageCommissionModel;
+use App\Models\PromotionTransfertModel;
 
 class OperationController extends BaseController
 {
@@ -98,6 +99,9 @@ class OperationController extends BaseController
 
     public function transfert()
     {
+        $promotionModel = new PromotionTransfertModel();
+        $promotion = array_column($promotionModel->findAll(1), 'pourcentage');
+
         $commissionModel = new PourcentageCommissionModel();
         $commissionConfig = $commissionModel->first();
         $tauxCommission = $commissionConfig ? (float) $commissionConfig['pourcentage'] : 0.10;
@@ -123,6 +127,11 @@ class OperationController extends BaseController
         for ($i = 0; $i < $nbDestinataires; $i++) {
             $numero = $prefixes[$i] . trim($suffixes[$i]);
             $isYas = in_array($prefixes[$i], ['034', '038']);
+            $isPromotion = $promotion[0] > 0;
+
+            if(!is_numeric(trim($suffixes[$i])) || strlen(trim($suffixes[$i])) !== 7) {
+                return redirect()->back()->with('error', 'Le numéro de téléphone ' . $numero . ' est invalide. Veuillez entrer un numéro valide.');
+            }
 
             if ($isMultiple && !$isYas) {
                 return redirect()->back()->with('error', 'Envoi multiple autorisé uniquement vers YAS.');
@@ -134,6 +143,10 @@ class OperationController extends BaseController
             $fraisTransfert = (float) $baremeModel->calculFrais(3, $montantDivise);
             if (!$isYas) {
                 $fraisTransfert += ($fraisTransfert * $tauxCommission);
+            }
+
+            if($isPromotion && $isYas) {
+                $fraisTransfert -= (($fraisTransfert * $promotion[0]) / 100);
             }
 
             $fraisRetrait = 0;

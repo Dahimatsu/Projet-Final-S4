@@ -47,19 +47,16 @@
         </table>
     </div>
 
-    <!-- Section Pagination -->
     <?php if ($pager): ?>
         <div class="card-footer bg-white d-flex justify-content-center pt-4 pb-2 border-0">
-            <!-- CodeIgniter gère automatiquement l'affichage des liens 1, 2, 3... -->
             <?= $pager->links() ?>
         </div>
     <?php endif; ?>
 </div>
 
-<!-- Petit style pour améliorer l'affichage de la pagination par défaut de CodeIgniter -->
 <style>
     .pagination {
-        margin-bottom: 0;
+        margin-bottom: 3;
     }
 
     .pagination li a,

@@ -78,7 +78,7 @@
 }
 
 /* Subtitle (16px) */
-.subtitle-regular, .subtitle, .nav-link {
+.subtitle-regular, label, .subtitle, .nav-link, .alert {
   font-family: "Helvetica Now Display", sans-serif;
   font-weight: 400;
   font-size: 16px;
@@ -103,7 +103,7 @@
   letter-spacing: 0%;
 }
 
-.body-regular, p, body, .alert {
+.body-regular, p, body {
   font-family: "Helvetica Now Display", sans-serif;
   font-weight: 400;
   font-size: 20px;
@@ -434,7 +434,13 @@ strong {
 }
 
 .form-control:focus,
-.form-select:focus {
+.form-select:focus,
+.form-check-input:focus {
   border-color: #004B47 !important;
   box-shadow: 0 0 0 0.2rem rgba(0, 75, 71, 0.25) !important;
+}
+
+.form-check-input:checked {
+  background-color: #004B47;
+  border-color: #004B47;
 }/*# sourceMappingURL=style.css.map */

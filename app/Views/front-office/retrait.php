@@ -18,14 +18,7 @@
                     <i class="bi bi-arrow-up-circle"></i>
                 </div>
                 <h5 class="card-title text-center mb-4">Retirer de l'argent</h5>
-
-                <!-- Affichage des erreurs éventuelles (ex: Solde insuffisant) -->
-                <?php if (session()->getFlashdata('error')): ?>
-                    <div class="alert alert-danger">
-                        <i class="bi bi-exclamation-triangle-fill me-2"></i><?= esc(session()->getFlashdata('error')) ?>
-                    </div>
-                <?php endif; ?>
-
+                
                 <!-- Formulaire -->
                 <form action="<?= base_url('client/retrait') ?>" method="post">
                     <?= csrf_field() ?>

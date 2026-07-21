@@ -75,7 +75,17 @@ strong { font-weight: 700; }
 }
 
 .form-control:focus,
-.form-select:focus {
+.form-select:focus,
+.form-check-input:focus {
     border-color: $theme-primary-border-default !important;
     box-shadow: 0 0 0 0.2rem rgba($theme-primary-border-default, 0.25) !important   ;
+}
+
+.form-check-input:checked {
+    background-color: $theme-primary-surface-default;
+    border-color: $theme-primary-border-default;
+}
+
+label {
+    @extend .subtitle-regular;
 }

@@ -46,13 +46,13 @@ $navlinks = [
             <?php endforeach; ?>
         </ul>
 
-        <?php if(session()->get('client_logged_in')) { ?>
+        <?php if (session()->get('client_logged_in')) { ?>
             <div class="mt-auto border-top bg-light p-3 bottom">
                 <div class="d-flex align-items-center mb-3">
                     <i class="bi bi-person-circle fs-4 me-2 text-secondary"></i>
-                    <div>
-                        <div class="fw-bold text-truncate" title="<?= esc(session()->get('prenom')) ?>">
-                            <?= esc(session()->get('prenom')) ?>
+                    <div class="d-flex flex-column ">
+                        <div class="text-truncate" title="<?= esc(session()->get('prenom')) ?>">
+                            <small style="color: black;"><?= esc(session()->get('prenom')) ?></small>
                         </div>
                         <small class="text-muted">
                             <?= esc(session()->get('numero_telephone')) ?>
@@ -60,14 +60,14 @@ $navlinks = [
                     </div>
                 </div>
 
-                <a href="/logout" class="nav-link text-danger p-0 d-flex align-items-center">
+                <a href="<?= base_url('logout') ?>" class="nav-link text-danger p-0 d-flex align-items-center">
                     <i class="bi bi-box-arrow-right me-2"></i>
                     Déconnexion
                 </a>
             </div>
         <?php } else { ?>
             <div class="mt-auto border-top bg-light p-3">
-                <a href="/client/login" class="nav-link text-primary p-0 d-flex align-items-center">
+                <a href="<?= base_url('client/login') ?>" class="nav-link text-primary p-0 d-flex align-items-center">
                     <i class="bi bi-box-arrow-in-right me-2"></i>
                     Connexion
                 </a>
@@ -78,7 +78,6 @@ $navlinks = [
 
     <!-- Contenu -->
     <div class="flex-grow-1 d-flex flex-column bg-light" style="margin-left: 250px;">
-        <!-- Assure-toi d'avoir le margin-left si ta sidebar est fixed -->
 
         <header class="px-4 py-3 border-bottom d-flex align-items-center bg-white">
 
@@ -86,11 +85,24 @@ $navlinks = [
                 Espace Client
             </h5>
 
+            <?php
+            if (session()->get('client_logged_in')) {
+                $clientModel = new \App\Models\ClientModel();
+                $client = $clientModel->where('numero_telephone', session()->get('numero_telephone'))->first();
+                $solde_client = $client ? $client['solde'] : 0;
+                ?>
+                <div class="ms-auto">
+                    <span class="small text-muted me-1">Solde actuel : </span>
+                    <span class="fw-bold text-primary fs-5">
+                        <?= number_format($solde_client, 2, ',', ' ') ?> Ar
+                    </span>
+                </div>
+            <?php } ?>
+
         </header>
 
         <main class="container-fluid p-4">
 
-            <!-- Alertes d'erreur -->
             <?php if (session()->getFlashdata('error')): ?>
                 <div class="alert alert-danger">
                     <i class="bi bi-exclamation-triangle-fill me-2"></i>
@@ -98,7 +110,6 @@ $navlinks = [
                 </div>
             <?php endif; ?>
 
-            <!-- Alertes de succès -->
             <?php if (session()->getFlashdata('success')): ?>
                 <div class="alert alert-success">
                     <i class="bi bi-check-circle-fill me-2"></i>
@@ -106,17 +117,16 @@ $navlinks = [
                 </div>
             <?php endif; ?>
 
-            <!-- Section dynamique -->
             <?= $this->renderSection('content') ?>
 
         </main>
 
         <footer class="py-3 text-center border-top mt-auto bg-white">
             <small>
-                Examen S4 Design
+                Examen S4 Design IT University
                 <i class="bi bi-c-circle mx-1"></i>
-                IT University 2026 |
-                ETU004054 - ETU004155
+                Juillet 2026 |
+                ETU00<strong>4054</strong> - ETU00<strong>4155</strong>
             </small>
         </footer>
 

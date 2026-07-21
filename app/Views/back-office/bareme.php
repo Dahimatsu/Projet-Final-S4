@@ -7,18 +7,8 @@
     <h1 class="h2">Barèmes de Frais</h1>
 </div>
 
-<!-- Alertes -->
-<?php if (session()->getFlashdata('error')): ?>
-    <div class="alert alert-danger"><i
-            class="bi bi-exclamation-triangle-fill me-2"></i><?= esc(session()->getFlashdata('error')) ?></div>
-<?php endif; ?>
-<?php if (session()->getFlashdata('success')): ?>
-    <div class="alert alert-success"><i
-            class="bi bi-check-circle-fill me-2"></i><?= esc(session()->getFlashdata('success')) ?></div>
-<?php endif; ?>
-
 <!-- Formulaire d'ajout -->
-<div class="card shadow-sm border-0 mb-4">
+<div class="card border-0 mb-4">
     <div class="card-body">
         <h5 class="card-title text-primary mb-3"><i class="bi bi-plus-circle me-2"></i>Ajouter une nouvelle tranche</h5>
         <form action="<?= base_url('admin/baremes/store') ?>" method="post" class="row g-3 align-items-end">
@@ -26,9 +16,8 @@
             <div class="col-md-3">
                 <label class="form-label fw-bold">Type Opération</label>
                 <select name="type_operation_id" class="form-select" required>
-                    <!-- On ne met pas Dépôt, car il n'y a pas de frais de dépôt -->
                     <?php foreach ($types as $type): ?>
-                        <?php if ($type['id'] != 1): // 1 = Dépôt ?>
+                        <?php if ($type['id'] != 1):  ?>
                             <option value="<?= $type['id'] ?>"><?= esc($type['nom']) ?></option>
                         <?php endif; ?>
                     <?php endforeach; ?>
@@ -60,7 +49,7 @@
             <label class="form-label fw-bold text-muted mb-1"><i class="bi bi-funnel me-1"></i>Filtrer par type
                 :</label>
             <select name="type_operation_id" class="form-select border-primary" onchange="this.form.submit()">
-                <option value="">-- Tous les types --</option>
+                <option value="">Tous les types</option>
                 <?php foreach ($types as $type): ?>
                     <?php if ($type['id'] != 1): ?>
                         <option value="<?= $type['id'] ?>" <?= service('request')->getGet('type_operation_id') == $type['id'] ? 'selected' : '' ?>>
@@ -75,7 +64,7 @@
 </div>
 
 <!-- Tableau des barèmes -->
-<div class="card shadow-sm border-0">
+<div class="card border-0">
     <div class="card-body p-0">
         <table class="table table-striped table-hover mb-0">
             <thead class="table-light">

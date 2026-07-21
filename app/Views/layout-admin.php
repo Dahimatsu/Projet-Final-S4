@@ -41,9 +41,16 @@ $navlinks = [
             <?php if (session()->get('admin_logged_in')) { ?>
                 <div class="d-flex align-items-center mb-2">
                     <i class="bi bi-person-circle fs-5 me-2 text-secondary"></i>
-                    <span class="fw-bold text-truncate" title="<?= esc(session()->get('prenom')) ?>">
-                        <?= esc(session()->get('prenom')) ?>
-                    </span>
+                    <div class="d-flex flex-column ">
+                        <div class="text-truncate" title="<?= esc(session()->get('prenom')) ?>">
+                            <small style="color: black;">
+                                <?= esc(session()->get('prenom')) ?>
+                            </small>
+                        </div>
+                        <small class="text-muted">
+                            <?= esc(session()->get('adresse_mail')) ?>
+                        </small>
+                    </div>
                 </div>
             <?php } ?>
         
@@ -63,16 +70,25 @@ $navlinks = [
         </header>
 
         <main class="container-fluid p-4 ">
-            <?php if (session()->getFlashdata('error')){ ?>
+            <?php if (session()->getFlashdata('error')): ?>
                 <div class="alert alert-danger"><i
                         class="bi bi-exclamation-triangle-fill me-2"></i><?= esc(session()->getFlashdata('error')) ?></div>
-            <?php } ?>
+            <?php endif; ?>
+            <?php if (session()->getFlashdata('success')): ?>
+                <div class="alert alert-success"><i
+                        class="bi bi-check-circle-fill me-2"></i><?= esc(session()->getFlashdata('success')) ?></div>
+            <?php endif; ?>
 
             <?= $this->renderSection('content') ?>
         </main>
 
-        <footer class="py-3 text-center mt-auto border-top">
-            <small>Examen S4 Design <i class="bi bi-c-circle me-1 ms-1"></i>IT University 2026 | ETU00<strong>4054</strong> - ETU00<strong>4155</strong></small>
+        <footer class="py-3 text-center border-top mt-auto bg-white">
+            <small>
+                Examen S4 Design IT University
+                <i class="bi bi-c-circle mx-1"></i>
+                Juillet 2026 |
+                ETU00<strong>4054</strong> - ETU00<strong>4155</strong>
+            </small>
         </footer>
     </div>
 

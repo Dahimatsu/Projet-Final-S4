@@ -17,7 +17,6 @@ class ClientDashboardController extends BaseController
 
         $data['client'] = $client;
 
-        // On récupère juste les 5 dernières opérations pour l'accueil
         $data['dernieres_operations'] = $operationModel->select('operation.*, type_operation.nom as type_nom')
             ->join('type_operation', 'type_operation.id = operation.type_operation_id')
             ->where('operation.id_client', $client['id_client'])

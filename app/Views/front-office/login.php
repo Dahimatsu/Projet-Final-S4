@@ -19,7 +19,13 @@
             <div class="col-md-4">
                 <div class="card shadow-sm border-0">
                     <div class="card-body p-4">
+                        
                         <h4 class="text-center mb-4">Se connecter</h4>
+                        <?php if (session()->getFlashdata('error')): ?>
+                            <div class="alert alert-danger mb-3">
+                                <?= session()->getFlashdata('error') ?>
+                            </div>
+                        <?php endif; ?>
 
                         <?php if (session()->getFlashdata('notExist')){ ?>
                             <div class="alert alert-success mb-3">

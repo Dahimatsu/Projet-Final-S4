@@ -12,9 +12,9 @@
     <div class="col-md-4">
         <div class="card bg-primary text-white shadow-sm h-100 border-0">
             <div class="card-body">
-                <h6 class="card-title text-uppercase text-white-50 fw-bold"><i class="bi bi-wallet2 me-2"></i>Solde
-                    Total YAS (Gains)</h6>
-                <h3 class="mb-0 fw-bold mt-3"><?= number_format($totalGains, 2, ',', ' ') ?> Ar</h3>
+                <h6 class="card-title text-uppercase text-white-50 fw-bold"><i class="bi bi-wallet2 me-2"></i>
+                    Gains Total YAS</h6>
+                <h3 class="mb-0 fw-bold text-white mt-3"><?= number_format($totalGains, 2, ',', ' ') ?> Ar</h3>
             </div>
         </div>
     </div>
@@ -24,7 +24,7 @@
             <div class="card-body">
                 <h6 class="card-title text-uppercase text-white-50 fw-bold"><i
                         class="bi bi-graph-up-arrow me-2"></i>Gains d'aujourd'hui</h6>
-                <h3 class="mb-0 fw-bold mt-3">+ <?= number_format($gainsJour, 2, ',', ' ') ?> Ar</h3>
+                <h3 class="mb-0 fw-bold text-white mt-3">+ <?= number_format($gainsJour, 2, ',', ' ') ?> Ar</h3>
             </div>
         </div>
     </div>
@@ -51,7 +51,6 @@
                         inscrits</h6>
                     <h3 class="mb-0 fw-bold"><?= esc($totalClients) ?></h3>
                 </div>
-                <i class="bi bi-person-lines-fill fs-1 text-white-50"></i>
             </div>
         </div>
     </div>
@@ -62,16 +61,14 @@
                 <div>
                     <h6 class="card-title text-uppercase text-white-50 fw-bold"><i
                             class="bi bi-activity me-2"></i>Opérations du jour</h6>
-                    <h3 class="mb-0 fw-bold"><?= esc($operationsJour) ?></h3>
+                    <h3 class="mb-0 fw-bold text-white"><?= esc($operationsJour) ?></h3>
                 </div>
-                <i class="bi bi-lightning-charge fs-1 text-white-50"></i>
             </div>
         </div>
     </div>
 </div>
 
-<!-- Ligne 3 : Dernières Transactions -->
-<div class="card shadow-sm border-0">
+<div class="card border-0">
     <div class="card-header bg-white pt-3 pb-2 border-bottom">
         <h5 class="mb-0 fw-bold">Dernières opérations globales</h5>
     </div>

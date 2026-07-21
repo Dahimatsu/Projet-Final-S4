@@ -7,10 +7,10 @@
 <!-- Section Solde Total -->
 <div class="row mt-2 mb-4">
     <div class="col-md-12">
-        <div class="card shadow-sm border-0 bg-primary text-white text-center py-4">
+        <div class="card border-0 bg-primary text-white text-center py-4">
             <div class="card-body">
                 <h5 class="text-white-50 mb-2">Mon Solde Actuel</h5>
-                <h1 class="display-4 fw-bold mb-0">
+                <h1 class="display-4 fw-bold text-white mb-0">
                     <?= number_format($client['solde'], 2, ',', ' ') ?> Ar
                 </h1>
             </div>
@@ -52,7 +52,6 @@
             <?php foreach ($dernieres_operations as $op): ?>
                 <div class="list-group-item d-flex justify-content-between align-items-center py-3">
                     <div class="d-flex align-items-center">
-                        <!-- Icône selon le type d'opération -->
                         <div class="me-3 fs-3">
                             <?php if ($op['type_operation_id'] == 1): ?>
                                 <i class="bi bi-arrow-down-circle-fill text-success"></i>

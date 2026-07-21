@@ -99,3 +99,5 @@ CREATE TABLE compte_admin (
 INSERT INTO compte_admin (nom, prenom, email, mot_de_passe) VALUES ('RAVELOMANANTSOA', 'Tony Mahefa', 'admin@example.com', 'admin123');
 
 
+
+

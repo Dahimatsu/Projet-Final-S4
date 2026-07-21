@@ -19,13 +19,6 @@
                 </div>
                 <h5 class="card-title text-center mb-4">Alimenter votre compte</h5>
 
-                <!-- Affichage des erreurs éventuelles -->
-                <?php if (session()->getFlashdata('error')): ?>
-                    <div class="alert alert-danger">
-                        <i class="bi bi-exclamation-triangle-fill me-2"></i><?= esc(session()->getFlashdata('error')) ?>
-                    </div>
-                <?php endif; ?>
-
                 <!-- Formulaire -->
                 <form action="<?= base_url('client/depot') ?>" method="post">
                     <?= csrf_field() ?>

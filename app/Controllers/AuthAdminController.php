@@ -26,6 +26,7 @@ class AuthAdminController extends BaseController
                 'id_admin' => $admin['id_admin'],
                 'nom' => $admin['nom'],
                 'prenom' => $admin['prenom'],
+                'adresse_mail' => $admin['email'],
                 'admin_logged_in' => true
             ]);
             return redirect()->to('/admin/dashboard');

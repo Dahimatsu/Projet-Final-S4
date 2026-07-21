@@ -17,10 +17,6 @@
                 <div class="text-primary text-center mb-3 fs-1"><i class="bi bi-arrow-left-right"></i></div>
                 <h5 class="card-title text-center mb-4">Envoyer des fonds</h5>
 
-                <?php if (session()->getFlashdata('error')): ?>
-                    <div class="alert alert-danger"><?= session()->getFlashdata('error') ?></div>
-                <?php endif; ?>
-
                 <form action="<?= base_url('client/transfert') ?>" method="post" id="form-transfert">
                     <?= csrf_field() ?>
 
@@ -55,7 +51,7 @@
                         <label for="montant" class="form-label">Montant Total à transférer (Ar)</label>
                         <input type="number" class="form-control form-control-lg" id="montant" name="montant"
                             placeholder="Ex: 10000" min="100" step="any" required>
-                        <div class="form-text" id="montant-help">S'il y a plusieurs numéros, le montant sera divisé à
+                        <div class="form-text footnote" id="montant-help">S'il y a plusieurs numéros, le montant sera divisé à
                             parts égales.</div>
                     </div>
 
@@ -66,8 +62,6 @@
                         <label class="form-check-label ms-2 fw-bold" for="inclure_frais">
                             Inclure les frais de retrait
                         </label>
-                        <div class="form-text ms-2 mt-1">Le destinataire recevra le montant exact demandé (applicable
-                            uniquement vers les numéros YAS).</div>
                     </div>
 
                     <button type="submit" class="btn btn-primary w-100 btn-lg mt-2">Envoyer le transfert</button>
