@@ -431,4 +431,10 @@ strong {
 .flex-grow-1 {
   margin-left: 250px;
   min-height: 100vh;
+}
+
+.form-control:focus,
+.form-select:focus {
+  border-color: #004B47 !important;
+  box-shadow: 0 0 0 0.2rem rgba(0, 75, 71, 0.25) !important;
 }/*# sourceMappingURL=style.css.map */

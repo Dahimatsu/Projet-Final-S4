@@ -73,3 +73,9 @@ strong { font-weight: 700; }
     margin-left: 250px;
     min-height: 100vh;
 }
+
+.form-control:focus,
+.form-select:focus {
+    border-color: $theme-primary-border-default !important;
+    box-shadow: 0 0 0 0.2rem rgba($theme-primary-border-default, 0.25) !important   ;
+}

@@ -46,30 +46,33 @@ $navlinks = [
             <?php endforeach; ?>
         </ul>
 
-        <div class="mt-auto border-top bg-light p-3">
-
-            <div class="d-flex align-items-center mb-3">
-                <i class="bi bi-person-circle fs-4 me-2 text-secondary"></i>
-
-                <div>
-                    <div class="fw-bold text-truncate" title="<?= esc(session()->get('prenom')) ?>">
-                        <?= esc(session()->get('prenom')) ?>
+        <?php if(session()->get('client_logged_in')) { ?>
+            <div class="mt-auto border-top bg-light p-3 bottom">
+                <div class="d-flex align-items-center mb-3">
+                    <i class="bi bi-person-circle fs-4 me-2 text-secondary"></i>
+                    <div>
+                        <div class="fw-bold text-truncate" title="<?= esc(session()->get('prenom')) ?>">
+                            <?= esc(session()->get('prenom')) ?>
+                        </div>
+                        <small class="text-muted">
+                            <?= esc(session()->get('numero_telephone')) ?>
+                        </small>
                     </div>
-
-                    <small class="text-muted">
-                        <?= esc(session()->get('numero_telephone')) ?>
-                    </small>
                 </div>
+
+                <a href="/logout" class="nav-link text-danger p-0 d-flex align-items-center">
+                    <i class="bi bi-box-arrow-right me-2"></i>
+                    Déconnexion
+                </a>
             </div>
-
-            <a href="/logout" class="nav-link text-danger p-0 d-flex align-items-center">
-
-                <i class="bi bi-box-arrow-right me-2"></i>
-                Déconnexion
-
-            </a>
-
-        </div>
+        <?php } else { ?>
+            <div class="mt-auto border-top bg-light p-3">
+                <a href="/client/login" class="nav-link text-primary p-0 d-flex align-items-center">
+                    <i class="bi bi-box-arrow-in-right me-2"></i>
+                    Connexion
+                </a>
+            </div>
+        <?php } ?>
 
     </nav>
 

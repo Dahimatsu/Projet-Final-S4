@@ -10,6 +10,9 @@ class OperationController extends BaseController
 {
     public function vueDepot()
     {
+        if (!session()->get('client_logged_in')) {
+            return redirect()->to('/client/login');
+        }
         return view('front-office/depot');
     }
 
@@ -39,6 +42,9 @@ class OperationController extends BaseController
 
     public function vueRetrait()
     {
+        if (!session()->get('client_logged_in')) {
+            return redirect()->to('/client/login');
+        }
         return view('front-office/retrait');
     }
 
@@ -84,6 +90,9 @@ class OperationController extends BaseController
 
     public function vueTransfert()
     {
+        if (!session()->get('client_logged_in')) {
+            return redirect()->to('/client/login');
+        }
         return view('front-office/transfert');
     }
 
