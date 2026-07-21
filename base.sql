@@ -50,7 +50,7 @@ CREATE TABLE compte_client (
     numero_telephone TEXT NOT NULL UNIQUE,
     nom              TEXT NOT NULL,
     prenom           TEXT NOT NULL,
-    solde            REAL NOT NULL DEFAULT 0
+    solde            REAL NOT NULL DEFAULT 0,
 );
 
 CREATE TABLE operation (

@@ -3,6 +3,7 @@
 use CodeIgniter\Router\RouteCollection;
 
 use App\Controllers\AccueilController;
+use App\Controllers\OperationController;
 
 /**
  * @var RouteCollection $routes
@@ -54,6 +55,9 @@ $routes->group('client', function ($routes) {
 
     $routes->get('transfert', 'OperationController::vueTransfert');
     $routes->post('transfert', 'OperationController::transfert');
+
+    $routes->get('epargne', 'OperationController::vueEpargne');
+    $routes->post('epargne', 'OperationController::epargne');
 
     $routes->get('historique', 'OperationController::historique');
 });

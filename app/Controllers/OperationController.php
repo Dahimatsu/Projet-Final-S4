@@ -165,6 +165,13 @@ class OperationController extends BaseController
                 'montantRecu' => $montantFinalRecu,
                 'fraisTransfert' => $fraisTransfert
             ];
+
+            $clientDestinataire = $clientModel->where('numero_telephone', $numero)->first();
+            $epargneDestinataire = $clientDestinataire['epargne'];
+
+            
+            
+
         }
 
         if ($clientExpediteur['solde'] < $totalAPrelever) {
@@ -203,6 +210,27 @@ class OperationController extends BaseController
         $db->transComplete();
 
         return redirect()->to('/client/dashboard')->with('success', 'Transfert effectué.');
+    }
+
+    public function vueEpargne()
+    {
+        if (!session()->get('client_logged_in')) {
+            return redirect()->to('/client/login');
+        }
+        return view('front-office/epargne');
+    }
+
+    public function epargne() {
+        $session = session();
+        $modelClient = new ClientModel();
+        $client = $modelClient->where('numero_telephone', session()->get('numero_telephone'))->first();
+        $epargne = $this->request->getPost('pourcentage');
+
+        $data = [
+            'epargne' => $epargne
+        ];
+        $modelClient->update($client['id_client'], $data);
+        return redirect()->to('/client/dashboard')->with('success', 'Epargne de ' . $epargne . '%.');
     }
 
     public function historique()

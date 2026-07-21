@@ -68,6 +68,7 @@ class AuthClientController extends BaseController
                 'nom' => $client['nom'],
                 'prenom' => $client['prenom'],
                 'solde' => $client['solde'],
+                'epargne' => $client['epargne'],
                 'client_logged_in' => true
             ]);
 

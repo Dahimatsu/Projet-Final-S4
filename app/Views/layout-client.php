@@ -5,6 +5,7 @@ $navlinks = [
     ['url' => 'client/retrait', 'label' => 'Retrait', 'icon' => 'bi-arrow-up-circle'],
     ['url' => 'client/transfert', 'label' => 'Transfert', 'icon' => 'bi-arrow-left-right'],
     ['url' => 'client/historique', 'label' => 'Historique', 'icon' => 'bi-clock-history'],
+    ['url' => 'client/epargne', 'label' => 'Epargne', 'icon' => 'bi-wallet'],
 ];
 ?>
 
